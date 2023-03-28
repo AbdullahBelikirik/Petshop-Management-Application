@@ -1,3 +1,12 @@
+
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,7 +18,12 @@
  * @author ZEHRABENGÜEMÜL
  */
 public class users extends javax.swing.JFrame {
-
+    
+    Connection Con = null;
+    PreparedStatement Ps = null;
+    ResultSet Rs = null;
+    Statement St = null;
+    
     /**
      * Creates new form users
      */
@@ -302,7 +316,14 @@ public class users extends javax.swing.JFrame {
     }//GEN-LAST:event_kullanici_sil_btnActionPerformed
 
     private void kullanici_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanici_kaydet_btnActionPerformed
-        // TODO add your handling code here:
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db","3k6hlhypr94w9vqbsi7d","pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+            Ps = Con.prepareStatement("insert into Users(UserID, UserName, UserPassword) VALUES(?,?,?)");
+        
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_kullanici_kaydet_btnActionPerformed
 
     private void kullanici_duzenle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanici_duzenle_btnActionPerformed
