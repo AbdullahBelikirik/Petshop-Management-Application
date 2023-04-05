@@ -66,8 +66,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="username_field2" min="-2" pref="285" max="-2" attributes="0"/>
-                              <Component id="username_field1" min="-2" pref="285" max="-2" attributes="0"/>
+                              <Component id="password_field" min="-2" pref="285" max="-2" attributes="0"/>
+                              <Component id="username_field" min="-2" pref="285" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -95,13 +95,13 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="username_field1" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="username_field" min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="jLabel14" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel13" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="username_field2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="password_field" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -139,12 +139,15 @@
             <Property name="text" type="java.lang.String" value="AD"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field1">
+        <Component class="javax.swing.JTextField" name="username_field">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="login_page_username_field"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field2">
+        <Component class="javax.swing.JTextField" name="password_field">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="password_fieldActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="login_page_username_field"/>
           </AuxValues>
@@ -222,7 +225,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="userTable">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">

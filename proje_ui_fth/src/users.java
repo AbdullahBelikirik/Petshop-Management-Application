@@ -5,7 +5,11 @@ import java.util.logging.Logger;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,9 +30,11 @@ public class users extends javax.swing.JFrame {
     
     /**
      * Creates new form users
+     * @throws java.sql.SQLException
      */
-    public users() {
+    public users() throws SQLException {
         initComponents();
+        displayUsers();
     }
 
     /**
@@ -43,13 +49,13 @@ public class users extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        username_field1 = new javax.swing.JTextField();
-        username_field2 = new javax.swing.JTextField();
+        username_field = new javax.swing.JTextField();
+        password_field = new javax.swing.JTextField();
         kullanici_sil_btn = new javax.swing.JButton();
         kullanici_kaydet_btn = new javax.swing.JButton();
         kullanici_duzenle_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        userTable = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -76,6 +82,12 @@ public class users extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
         jLabel14.setText("AD");
+
+        password_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password_fieldActionPerformed(evt);
+            }
+        });
 
         kullanici_sil_btn.setBackground(new java.awt.Color(255, 204, 204));
         kullanici_sil_btn.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -110,9 +122,9 @@ public class users extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTable1.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        userTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        userTable.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -123,9 +135,9 @@ public class users extends javax.swing.JFrame {
                 "Ad", "Sifre"
             }
         ));
-        jTable1.setRowHeight(30);
-        jTable1.setRowMargin(2);
-        jScrollPane1.setViewportView(jTable1);
+        userTable.setRowHeight(30);
+        userTable.setRowMargin(2);
+        jScrollPane1.setViewportView(userTable);
 
         jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
         jLabel15.setText("KULLANICI LISTESI");
@@ -276,8 +288,8 @@ public class users extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(username_field2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(password_field, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(username_field, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -297,12 +309,12 @@ public class users extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(109, 109, 109)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(username_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(username_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(password_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(kullanici_sil_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,24 +342,92 @@ public class users extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void displayUsers() throws SQLException{
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db","3k6hlhypr94w9vqbsi7d","pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+               
+        St = Con.createStatement();
+        Rs = St.executeQuery("Select * from Users");
+        
+        ResultSetMetaData metaData = Rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        String[] columnNames = new String[columnCount];
+        for (int i = 1; i <= columnCount; i++) {
+           columnNames[i-1] = metaData.getColumnName(i);
+        }
+         
+         // DefaultTableModel nesnesini oluştur ve sütun bilgilerini ekle
+         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+         
+         // ResultSet nesnesinden verileri tabloya ekle
+         while (Rs.next()) {
+            Object[] row = new Object[columnCount];
+            for (int i = 1; i <= columnCount; i++) {
+               row[i-1] = Rs.getObject(i);
+            }
+            tableModel.addRow(row);
+         }
+         
+         // JTable nesnesini oluştur ve verileri ekleyerek göster
+         userTable.setModel(tableModel);
+         //JOptionPane.showMessageDialog(null, new JScrollPane(table), "Table", JOptionPane.PLAIN_MESSAGE);
+         
+         // Kaynakları serbest bırak
+         Rs.close();
+         St.close();
+         Con.close();
+    }
+    
+    
     private void kullanici_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanici_sil_btnActionPerformed
-        // TODO add your handling code here:
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        try {
+            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db","3k6hlhypr94w9vqbsi7d","pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+            St = (Statement) Con.createStatement();
+            Rs = (ResultSet) St.executeQuery("Select * from Users");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_kullanici_sil_btnActionPerformed
 
     private void kullanici_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanici_kaydet_btnActionPerformed
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db","3k6hlhypr94w9vqbsi7d","pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
-            Ps = Con.prepareStatement("insert into Users(UserID, UserName, UserPassword) VALUES(?,?,?)");
-        
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        if(username_field.getText().isEmpty() || password_field.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+        }
+        else{   
+            try {
+                Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db","3k6hlhypr94w9vqbsi7d","pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Users(UserName, UserPassword) VALUES(?,?)");  
+                Ps.setString(1, username_field.getText());
+                Ps.setString(2, password_field.getText());
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Kullanıcı Eklendi");
+                Con.close();
+                displayUsers();
+            } catch (SQLException ex) {
+                Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex);
+            }
         }
     }//GEN-LAST:event_kullanici_kaydet_btnActionPerformed
 
     private void kullanici_duzenle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanici_duzenle_btnActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_kullanici_duzenle_btnActionPerformed
 
     private void pets_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pets_btn
@@ -394,10 +474,14 @@ public class users extends javax.swing.JFrame {
 	    });
     }//GEN-LAST:event_logout_btn
 
+    private void password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password_fieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -420,10 +504,14 @@ public class users extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new users().setVisible(true);
+            try {
+                new users().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
@@ -447,11 +535,11 @@ public class users extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton kullanici_duzenle_btn;
     private javax.swing.JButton kullanici_kaydet_btn;
     private javax.swing.JButton kullanici_sil_btn;
-    private javax.swing.JTextField username_field1;
-    private javax.swing.JTextField username_field2;
+    private javax.swing.JTextField password_field;
+    private javax.swing.JTable userTable;
+    private javax.swing.JTextField username_field;
     // End of variables declaration//GEN-END:variables
 }
