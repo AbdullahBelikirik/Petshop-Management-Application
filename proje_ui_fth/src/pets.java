@@ -1,3 +1,8 @@
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -339,7 +344,11 @@ public class pets extends javax.swing.JFrame {
         // TODO add your handling code here:
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
-		new users().setVisible(true);
+                try {
+                    new users().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
+                }
 	    });
     }//GEN-LAST:event_users_btn
 

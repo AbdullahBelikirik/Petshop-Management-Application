@@ -16,20 +16,20 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author ZEHRABENGÜEMÜL
  */
 public class users extends javax.swing.JFrame {
-    
+
     Connection Con = null;
     PreparedStatement Ps = null;
     ResultSet Rs = null;
     Statement St = null;
-    
+
     /**
      * Creates new form users
+     *
      * @throws java.sql.SQLException
      */
     public users() throws SQLException {
@@ -137,6 +137,11 @@ public class users extends javax.swing.JFrame {
         ));
         userTable.setRowHeight(30);
         userTable.setRowMargin(2);
+        userTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(userTable);
 
         jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
@@ -342,48 +347,48 @@ public class users extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void displayUsers() throws SQLException{
+
+    private void displayUsers() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db","3k6hlhypr94w9vqbsi7d","pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
-               
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+
         St = Con.createStatement();
         Rs = St.executeQuery("Select * from Users");
-        
+
         ResultSetMetaData metaData = Rs.getMetaData();
         int columnCount = metaData.getColumnCount();
         String[] columnNames = new String[columnCount];
         for (int i = 1; i <= columnCount; i++) {
-           columnNames[i-1] = metaData.getColumnName(i);
+            columnNames[i - 1] = metaData.getColumnName(i);
         }
-         
-         // DefaultTableModel nesnesini oluştur ve sütun bilgilerini ekle
-         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-         
-         // ResultSet nesnesinden verileri tabloya ekle
-         while (Rs.next()) {
+
+        // DefaultTableModel nesnesini oluştur ve sütun bilgilerini ekle
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        // ResultSet nesnesinden verileri tabloya ekle
+        while (Rs.next()) {
             Object[] row = new Object[columnCount];
             for (int i = 1; i <= columnCount; i++) {
-               row[i-1] = Rs.getObject(i);
+                row[i - 1] = Rs.getObject(i);
             }
             tableModel.addRow(row);
-         }
-         
-         // JTable nesnesini oluştur ve verileri ekleyerek göster
-         userTable.setModel(tableModel);
-         //JOptionPane.showMessageDialog(null, new JScrollPane(table), "Table", JOptionPane.PLAIN_MESSAGE);
-         
-         // Kaynakları serbest bırak
-         Rs.close();
-         St.close();
-         Con.close();
+        }
+
+        // JTable nesnesini oluştur ve verileri ekleyerek göster
+        userTable.setModel(tableModel);
+        //JOptionPane.showMessageDialog(null, new JScrollPane(table), "Table", JOptionPane.PLAIN_MESSAGE);
+
+        // Kaynakları serbest bırak
+        Rs.close();
+        St.close();
+        Con.close();
     }
-    
-    
+
+
     private void kullanici_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanici_sil_btnActionPerformed
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -391,10 +396,21 @@ public class users extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex);
         }
         try {
-            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db","3k6hlhypr94w9vqbsi7d","pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
-            St = (Statement) Con.createStatement();
-            Rs = (ResultSet) St.executeQuery("Select * from Users");
-            
+            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+            Ps = (PreparedStatement) Con.prepareStatement("delete from Users where UserName = ?");
+
+            int selectedRowIndex = userTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+                String userName = (String) userTable.getValueAt(selectedRowIndex, 0);
+                Ps.setString(1, userName);
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Kullanıcı Silindi");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sileceğiniz kullancıyı seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayUsers();
         } catch (SQLException ex) {
             Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -406,13 +422,12 @@ public class users extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        if(username_field.getText().isEmpty() || password_field.getText().isEmpty()){
+        if (username_field.getText().isEmpty() || password_field.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Eksik Bilgi");
-        }
-        else{   
+        } else {
             try {
-                Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db","3k6hlhypr94w9vqbsi7d","pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
-                Ps = (PreparedStatement) Con.prepareStatement("insert into Users(UserName, UserPassword) VALUES(?,?)");  
+                Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Users(UserName, UserPassword) VALUES(?,?)");
                 Ps.setString(1, username_field.getText());
                 Ps.setString(2, password_field.getText());
                 Ps.executeUpdate();
@@ -427,15 +442,46 @@ public class users extends javax.swing.JFrame {
     }//GEN-LAST:event_kullanici_kaydet_btnActionPerformed
 
     private void kullanici_duzenle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanici_duzenle_btnActionPerformed
-        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Users Set UserName = ? , UserPassword = ? where UserName = ?");
+
+            int selectedRowIndex = userTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+
+                String oldUserName = (String) userTable.getValueAt(selectedRowIndex, 0);
+                if (username_field.getText().isEmpty() || password_field.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+                } else {
+                    Ps.setString(1, username_field.getText());
+                    Ps.setString(2, password_field.getText());
+                    Ps.setString(3, oldUserName);
+                    Ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Kullanıcı Güncellendi");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz kullancıyı seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayUsers();
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
     }//GEN-LAST:event_kullanici_duzenle_btnActionPerformed
 
     private void pets_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pets_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new pets().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new pets().setVisible(true);
+        });
     }//GEN-LAST:event_pets_btn
 
     private void users_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_users_btn
@@ -444,42 +490,49 @@ public class users extends javax.swing.JFrame {
 
     private void customers_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customers_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new customers().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new customers().setVisible(true);
+        });
     }//GEN-LAST:event_customers_btn
 
     private void billing_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billing_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new billing().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new billing().setVisible(true);
+        });
     }//GEN-LAST:event_billing_btn
 
     private void products_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_products_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new products().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new products().setVisible(true);
+        });
     }//GEN-LAST:event_products_btn
 
     private void logout_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new login_page().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new login_page().setVisible(true);
+        });
     }//GEN-LAST:event_logout_btn
 
     private void password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_fieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_password_fieldActionPerformed
 
+    private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked
+        int selectedRowIndex = userTable.getSelectedRow();
+        username_field.setText((String) userTable.getValueAt(selectedRowIndex, 0));
+        password_field.setText((String) userTable.getValueAt(selectedRowIndex, 1));
+    }//GEN-LAST:event_userTableMouseClicked
+
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
     public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
@@ -504,7 +557,7 @@ public class users extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             try {
