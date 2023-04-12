@@ -89,9 +89,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="username_field2" alignment="0" pref="285" max="32767" attributes="0"/>
-                              <Component id="username_field1" alignment="0" pref="285" max="32767" attributes="0"/>
-                              <Component id="username_field3" alignment="0" pref="285" max="32767" attributes="0"/>
+                              <Component id="phoneNumber_field" alignment="0" pref="285" max="32767" attributes="0"/>
+                              <Component id="customername_field" alignment="0" pref="285" max="32767" attributes="0"/>
+                              <Component id="address_field" alignment="0" pref="285" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -119,17 +119,17 @@
                           <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="username_field1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="customername_field" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="username_field3" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="address_field" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel13" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="username_field2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="phoneNumber_field" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -176,17 +176,17 @@
             <Property name="text" type="java.lang.String" value="AD"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field1">
+        <Component class="javax.swing.JTextField" name="customername_field">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="login_page_username_field"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field2">
+        <Component class="javax.swing.JTextField" name="phoneNumber_field">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="login_page_username_field"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field3">
+        <Component class="javax.swing.JTextField" name="address_field">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="login_page_username_field"/>
           </AuxValues>
@@ -264,7 +264,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="customerTable">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">

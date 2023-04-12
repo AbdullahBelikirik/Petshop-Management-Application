@@ -1,6 +1,14 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,12 +21,17 @@ import java.util.logging.Logger;
  * @author ZEHRABENGÜEMÜL
  */
 public class customers extends javax.swing.JFrame {
-
+    
+    Connection Con = null;
+    PreparedStatement Ps = null;
+    ResultSet Rs = null;
+    Statement St = null;
     /**
      * Creates new form customers
      */
-    public customers() {
+    public customers() throws SQLException {
         initComponents();
+        displayCustomers();
     }
 
     /**
@@ -35,14 +48,14 @@ public class customers extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        username_field1 = new javax.swing.JTextField();
-        username_field2 = new javax.swing.JTextField();
-        username_field3 = new javax.swing.JTextField();
+        customername_field = new javax.swing.JTextField();
+        phoneNumber_field = new javax.swing.JTextField();
+        address_field = new javax.swing.JTextField();
         musteri_sil_btn = new javax.swing.JButton();
         musteri_kaydet_btn = new javax.swing.JButton();
         muster_duzenle_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        customerTable = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -118,9 +131,9 @@ public class customers extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTable1.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        customerTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        customerTable.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
+        customerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -131,9 +144,9 @@ public class customers extends javax.swing.JFrame {
                 "Ad", "Adres", "Telefon Numarası"
             }
         ));
-        jTable1.setRowHeight(30);
-        jTable1.setRowMargin(2);
-        jScrollPane1.setViewportView(jTable1);
+        customerTable.setRowHeight(30);
+        customerTable.setRowMargin(2);
+        jScrollPane1.setViewportView(customerTable);
 
         jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
         jLabel15.setText("MÜSTERI LISTESI");
@@ -286,9 +299,9 @@ public class customers extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(username_field2, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(username_field1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(username_field3, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))))
+                            .addComponent(phoneNumber_field, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                            .addComponent(customername_field, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                            .addComponent(address_field, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -308,15 +321,15 @@ public class customers extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(customername_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(55, 55, 55)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(username_field3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(address_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneNumber_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(musteri_sil_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,6 +394,142 @@ public class customers extends javax.swing.JFrame {
 	    });
     }//GEN-LAST:event_users_btn
 
+    
+     private void displayCustomers() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+
+        St = Con.createStatement();
+        Rs = St.executeQuery("Select * from Customers");
+
+        ResultSetMetaData metaData = Rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        String[] columnNames = new String[columnCount];
+        for (int i = 1; i <= columnCount; i++) {
+            columnNames[i - 1] = metaData.getColumnName(i);
+        }
+
+        // DefaultTableModel nesnesini oluştur ve sütun bilgilerini ekle
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        // ResultSet nesnesinden verileri tabloya ekle
+        while (Rs.next()) {
+            Object[] row = new Object[columnCount];
+            for (int i = 1; i <= columnCount; i++) {
+                row[i - 1] = Rs.getObject(i);
+            }
+            tableModel.addRow(row);
+        }
+
+        // JTable nesnesini oluştur ve verileri ekleyerek göster
+        customerTable.setModel(tableModel);
+        //JOptionPane.showMessageDialog(null, new JScrollPane(table), "Table", JOptionPane.PLAIN_MESSAGE);
+
+        // Kaynakları serbest bırak
+        Rs.close();
+        St.close();
+        Con.close();
+    }
+
+    private void customer_delete_btnActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        try {
+            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+            Ps = (PreparedStatement) Con.prepareStatement("delete from Customers where name = ?");
+
+            int selectedRowIndex = customerTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+                String customerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
+                Ps.setString(1, customerName);
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Müşteri Silindi");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sileceğiniz müşteriyi seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayCustomers();
+        } catch (SQLException ex) {
+            Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }                                                 
+
+    private void customer_save_btnActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        if (customername_field.getText().isEmpty() || address_field.getText().isEmpty() || phoneNumber_field.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+        } else {
+            try {
+                Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(name, address, phoneNumber) VALUES(?,?,?)");
+                Ps.setString(1, customername_field.getText());
+                Ps.setString(2, address_field.getText());
+                Ps.setString(2, phoneNumber_field.getText());
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Müşteri Eklendi");
+                Con.close();
+                displayCustomers();
+            } catch (SQLException ex) {
+                Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex);
+            }
+        }
+    }                                                    
+
+    private void customer_update_btnActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set name = ? , address = ? where phoneNumber = ?");
+
+            int selectedRowIndex = customerTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+
+                String oldCustomerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
+                if (customername_field.getText().isEmpty() || address_field.getText().isEmpty() || phoneNumber_field.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+                } else {
+                    Ps.setString(1, customername_field.getText());
+                    Ps.setString(2, address_field.getText());
+                    Ps.setString(2, phoneNumber_field.getText());
+
+                    Ps.setString(3, oldCustomerName);
+                    Ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Müşteri Güncellendi");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz müşteriyi seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayCustomers();
+        } catch (SQLException ex) {
+            Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
+    }                                                     
+
+    //burayaaaa
+    
+    
+    
+    
     private void customers_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customers_btn
         // TODO add your handling code here:
     }//GEN-LAST:event_customers_btn
@@ -438,11 +587,18 @@ public class customers extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new customers().setVisible(true);
+            try {
+                new customers().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField address_field;
+    private javax.swing.JTable customerTable;
+    private javax.swing.JTextField customername_field;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -464,12 +620,11 @@ public class customers extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton muster_duzenle_btn;
     private javax.swing.JButton musteri_kaydet_btn;
     private javax.swing.JButton musteri_sil_btn;
-    private javax.swing.JTextField username_field1;
-    private javax.swing.JTextField username_field2;
-    private javax.swing.JTextField username_field3;
+    private javax.swing.JTextField phoneNumber_field;
     // End of variables declaration//GEN-END:variables
+
+   
 }
