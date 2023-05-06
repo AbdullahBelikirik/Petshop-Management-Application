@@ -413,7 +413,7 @@ public class customers extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
 
         St = Con.createStatement();
         Rs = St.executeQuery("Select * from Customers");
@@ -454,7 +454,7 @@ public class customers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex);
         }
         try {
-            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("delete from Customers where name = ?");
 
             int selectedRowIndex = customerTable.getSelectedRow();
@@ -484,7 +484,7 @@ public class customers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Eksik Bilgi");
         } else {
             try {
-                Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
                 Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(name, address, phoneNumber) VALUES(?,?,?)");
                 Ps.setString(1, customername_field.getText());
                 Ps.setString(2, address_field.getText());
@@ -507,7 +507,7 @@ public class customers extends javax.swing.JFrame {
             Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Con = (Connection) DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "3k6hlhypr94w9vqbsi7d", "pscale_pw_SMiDmSmyZfHqUp8a0c1JkJhHc3EsgPmcK9D75b0lu79");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set name = ? , address = ? where phoneNumber = ?");
 
             int selectedRowIndex = customerTable.getSelectedRow();
