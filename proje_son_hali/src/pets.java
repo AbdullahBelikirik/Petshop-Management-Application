@@ -1,7 +1,15 @@
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,7 +22,10 @@ import java.util.logging.Logger;
  * @author ZEHRABENGÜEMÜL
  */
 public class pets extends javax.swing.JFrame {
-
+    Connection Con = null;
+    PreparedStatement Ps = null;
+    ResultSet Rs = null;
+    Statement St = null;
     /**
      * Creates new form pets
      */
@@ -38,9 +49,9 @@ public class pets extends javax.swing.JFrame {
         hayvan_kaydet_btn = new javax.swing.JButton();
         hayvan_duzenle_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        petsTable = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
-        username_field4 = new javax.swing.JTextField();
+        ıd_field = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -55,7 +66,7 @@ public class pets extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        username_field5 = new javax.swing.JTextField();
+        species_field = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -101,9 +112,9 @@ public class pets extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTable1.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        petsTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        petsTable.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
+        petsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -114,14 +125,19 @@ public class pets extends javax.swing.JFrame {
                 "ID", "Tür"
             }
         ));
-        jTable1.setRowHeight(30);
-        jTable1.setRowMargin(2);
-        jScrollPane1.setViewportView(jTable1);
+        petsTable.setRowHeight(30);
+        petsTable.setRowMargin(2);
+        jScrollPane1.setViewportView(petsTable);
 
         jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
         jLabel15.setText("HAYVAN LISTESI");
 
-        username_field4.setBackground(new java.awt.Color(245, 245, 245));
+        ıd_field.setBackground(new java.awt.Color(245, 245, 245));
+        ıd_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ıd_fieldActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
         jPanel2.setPreferredSize(new java.awt.Dimension(1204, 163));
@@ -248,11 +264,11 @@ public class pets extends javax.swing.JFrame {
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        username_field5.setBackground(new java.awt.Color(245, 245, 245));
+        species_field.setBackground(new java.awt.Color(245, 245, 245));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -276,8 +292,8 @@ public class pets extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(username_field5, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(species_field, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ıd_field, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -303,11 +319,11 @@ public class pets extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ıd_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(species_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(hayvan_sil_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,15 +347,131 @@ public class pets extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void displayPets() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+        St = Con.createStatement();
+        Rs = St.executeQuery("Select * from Pets");
+
+        ResultSetMetaData metaData = Rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        String[] columnNames = new String[columnCount];
+        for (int i = 1; i <= columnCount; i++) {
+            columnNames[i - 1] = metaData.getColumnName(i);
+        }
+
+        // DefaultTableModel nesnesini oluştur ve sütun bilgilerini ekle
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        // ResultSet nesnesinden verileri tabloya ekle
+        while (Rs.next()) {
+            Object[] row = new Object[columnCount];
+            for (int i = 1; i <= columnCount; i++) {
+                row[i - 1] = Rs.getObject(i);
+            }
+            tableModel.addRow(row);
+        }
+
+        // JTable nesnesini oluştur ve verileri ekleyerek göster
+        petsTable.setModel(tableModel);
+        //JOptionPane.showMessageDialog(null, new JScrollPane(table), "Table", JOptionPane.PLAIN_MESSAGE);
+
+        // Kaynakları serbest bırak
+        Rs.close();
+        St.close();
+        Con.close();
+    }
     private void hayvan_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_sil_btnActionPerformed
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        try {
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Ps = (PreparedStatement) Con.prepareStatement("delete from Pets where PetId = ?");
+
+            int selectedRowIndex = petsTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+                String userName = (String) petsTable.getValueAt(selectedRowIndex, 0);
+                Ps.setString(1, userName);
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Hayvan Silindi");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sileceğiniz hayvanı seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayPets();
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_hayvan_sil_btnActionPerformed
 
     private void hayvan_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_kaydet_btnActionPerformed
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        if (ıd_field.getText().isEmpty() || species_field.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+        } else {
+            try {
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Pets(PetId, PetSpecies) VALUES(?,?)");
+                Ps.setString(1, ıd_field.getText());
+                Ps.setString(2, species_field.getText());
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Kullanıcı Eklendi");
+                Con.close();
+                displayPets();
+            } catch (SQLException ex) {
+                Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex);
+            }
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_hayvan_kaydet_btnActionPerformed
 
     private void hayvan_duzenle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_duzenle_btnActionPerformed
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Pets Set PetId = ? , PetSpecies = ? where PetId = ?");
+
+            int selectedRowIndex = petsTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+
+                String oldUserName = (String) petsTable.getValueAt(selectedRowIndex, 0);
+                if (ıd_field.getText().isEmpty() || species_field.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+                } else {
+                    Ps.setString(1, ıd_field.getText());
+                    Ps.setString(2, species_field.getText());
+                    Ps.setString(3, oldUserName);
+                    Ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Kullanıcı Güncellendi");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz kullancıyı seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayPets();
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_hayvan_duzenle_btnActionPerformed
 
@@ -394,6 +526,10 @@ public class pets extends javax.swing.JFrame {
 		new login_page().setVisible(true);
 	    });
     }//GEN-LAST:event_logout_btn
+
+    private void ıd_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ıd_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ıd_fieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -451,8 +587,8 @@ public class pets extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField username_field4;
-    private javax.swing.JTextField username_field5;
+    private javax.swing.JTable petsTable;
+    private javax.swing.JTextField species_field;
+    private javax.swing.JTextField ıd_field;
     // End of variables declaration//GEN-END:variables
 }

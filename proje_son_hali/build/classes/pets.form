@@ -66,8 +66,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="username_field5" min="-2" pref="285" max="-2" attributes="0"/>
-                              <Component id="username_field4" min="-2" pref="285" max="-2" attributes="0"/>
+                              <Component id="species_field" min="-2" pref="285" max="-2" attributes="0"/>
+                              <Component id="ıd_field" min="-2" pref="285" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -102,12 +102,12 @@
                           <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel11" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="username_field4" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="ıd_field" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel13" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="username_field5" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="species_field" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -212,7 +212,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="petsTable">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -259,12 +259,15 @@
             <Property name="text" type="java.lang.String" value="HAYVAN LISTESI"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field4">
+        <Component class="javax.swing.JTextField" name="&#x131;d_field">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f5" green="f5" red="f5" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="&#x131;d_fieldActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="login_page_username_field"/>
           </AuxValues>
@@ -343,7 +346,7 @@
                           <Component id="jLabel9" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="8" max="32767" attributes="0"/>
                       <Component id="jLabel16" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -485,7 +488,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="username_field5">
+        <Component class="javax.swing.JTextField" name="species_field">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f5" green="f5" red="f5" type="rgb"/>

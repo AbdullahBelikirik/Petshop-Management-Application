@@ -408,7 +408,7 @@
                           <Component id="jLabel9" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="8" max="32767" attributes="0"/>
                       <Component id="jLabel17" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
               </Group>

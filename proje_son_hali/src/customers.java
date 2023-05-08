@@ -1,3 +1,4 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,17 +16,17 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author ZEHRABENGÜEMÜL
  */
 public class customers extends javax.swing.JFrame {
-    
+
     Connection Con = null;
     PreparedStatement Ps = null;
     ResultSet Rs = null;
     Statement St = null;
+
     /**
      * Creates new form customers
      */
@@ -372,42 +373,122 @@ public class customers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void musteri_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musteri_sil_btnActionPerformed
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        try {
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Ps = (PreparedStatement) Con.prepareStatement("delete from Customers where name = ?");
+
+            int selectedRowIndex = customerTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+                String customerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
+                Ps.setString(1, customerName);
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Müşteri Silindi");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sileceğiniz müşteriyi seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayCustomers();
+        } catch (SQLException ex) {
+            Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // TODO add your handling code here:
         //musteri silme butonu event yeri
     }//GEN-LAST:event_musteri_sil_btnActionPerformed
 
     private void musteri_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musteri_kaydet_btnActionPerformed
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        if (customername_field.getText().isEmpty() || address_field.getText().isEmpty() || phoneNumber_field.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+        } else {
+            try {
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(name, address, phoneNumber) VALUES(?,?,?)");
+                Ps.setString(1, customername_field.getText());
+                Ps.setString(2, address_field.getText());
+                Ps.setString(3, phoneNumber_field.getText());
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Müşteri Eklendi");
+                Con.close();
+                displayCustomers();
+            } catch (SQLException ex) {
+                Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex);
+            }
+        }
         // TODO add your handling code here:
         //musteri kaydet butonu event yeri
     }//GEN-LAST:event_musteri_kaydet_btnActionPerformed
 
     private void muster_duzenle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muster_duzenle_btnActionPerformed
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set name = ? , address = ? where phoneNumber = ?");
+
+            int selectedRowIndex = customerTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+
+                String oldCustomerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
+                if (customername_field.getText().isEmpty() || address_field.getText().isEmpty() || phoneNumber_field.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+                } else {
+                    Ps.setString(1, customername_field.getText());
+                    Ps.setString(2, address_field.getText());
+                    Ps.setString(2, phoneNumber_field.getText());
+
+                    Ps.setString(3, oldCustomerName);
+                    Ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Müşteri Güncellendi");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz müşteriyi seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayCustomers();
+        } catch (SQLException ex) {
+            Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
         // TODO add your handling code here:
         //musteri duzenleme butonu event yeri
     }//GEN-LAST:event_muster_duzenle_btnActionPerformed
 
     private void pets_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pets_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new pets().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new pets().setVisible(true);
+        });
     }//GEN-LAST:event_pets_btn
 
     private void users_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_users_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-                try {
-                    new users().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
-                }
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new users().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }//GEN-LAST:event_users_btn
 
-    
-     private void displayCustomers() throws SQLException {
+    private void displayCustomers() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -446,8 +527,8 @@ public class customers extends javax.swing.JFrame {
         St.close();
         Con.close();
     }
-
-    private void customer_delete_btnActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+/*
+    private void muste_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -472,9 +553,9 @@ public class customers extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }                                                 
+    }
 
-    private void customer_save_btnActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    private void customer_save_btnActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -498,9 +579,9 @@ public class customers extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, ex);
             }
         }
-    }                                                    
+    }
 
-    private void customer_update_btnActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+    private void customer_update_btnActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -535,39 +616,36 @@ public class customers extends javax.swing.JFrame {
             Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex);
         }
-    }                                                     
-
+    }
+*/
     //burayaaaa
-    
-    
-    
-    
+
     private void customers_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customers_btn
         // TODO add your handling code here:
     }//GEN-LAST:event_customers_btn
 
     private void billing_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billing_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new billing().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new billing().setVisible(true);
+        });
     }//GEN-LAST:event_billing_btn
 
     private void products_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_products_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new products().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new products().setVisible(true);
+        });
     }//GEN-LAST:event_products_btn
 
     private void logout_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_btn
         // TODO add your handling code here:
-	    dispose();
-	    java.awt.EventQueue.invokeLater(() -> {
-		new login_page().setVisible(true);
-	    });
+        dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new login_page().setVisible(true);
+        });
     }//GEN-LAST:event_logout_btn
 
     /**
