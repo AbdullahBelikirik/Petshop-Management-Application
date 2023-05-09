@@ -1,9 +1,17 @@
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/*
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -15,7 +23,10 @@ import java.util.logging.Logger;
  * @author ZEHRABENGÜEMÜL
  */
 public class products extends javax.swing.JFrame {
-
+    Connection Con = null;
+    PreparedStatement Ps = null;
+    ResultSet Rs = null;
+    Statement St = null;
     /**
      * Creates new form products
      */
@@ -35,11 +46,11 @@ public class products extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        hayvan_sil_btn = new javax.swing.JButton();
-        hayvan_kaydet_btn = new javax.swing.JButton();
-        hayvan_duzenle_btn = new javax.swing.JButton();
+        ürün_sil_btn = new javax.swing.JButton();
+        ürün_kaydet_btn = new javax.swing.JButton();
+        ürün_duzenle_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        productsTable = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -57,10 +68,10 @@ public class products extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        username_field5 = new javax.swing.JTextField();
-        username_field6 = new javax.swing.JTextField();
-        username_field7 = new javax.swing.JTextField();
-        username_field8 = new javax.swing.JTextField();
+        ıd_field = new javax.swing.JTextField();
+        productquantity_field = new javax.swing.JTextField();
+        productprice_field = new javax.swing.JTextField();
+        productname_field = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,42 +86,42 @@ public class products extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
         jLabel13.setText("URUN ADI");
 
-        hayvan_sil_btn.setBackground(new java.awt.Color(255, 204, 204));
-        hayvan_sil_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
-        hayvan_sil_btn.setText("SIL");
-        hayvan_sil_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        hayvan_sil_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hayvan_sil_btn.addActionListener(new java.awt.event.ActionListener() {
+        ürün_sil_btn.setBackground(new java.awt.Color(255, 204, 204));
+        ürün_sil_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
+        ürün_sil_btn.setText("SIL");
+        ürün_sil_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ürün_sil_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ürün_sil_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hayvan_sil_btnActionPerformed(evt);
+                ürün_sil_btnActionPerformed(evt);
             }
         });
 
-        hayvan_kaydet_btn.setBackground(new java.awt.Color(255, 204, 204));
-        hayvan_kaydet_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
-        hayvan_kaydet_btn.setText("KAYDET");
-        hayvan_kaydet_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        hayvan_kaydet_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hayvan_kaydet_btn.addActionListener(new java.awt.event.ActionListener() {
+        ürün_kaydet_btn.setBackground(new java.awt.Color(255, 204, 204));
+        ürün_kaydet_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
+        ürün_kaydet_btn.setText("KAYDET");
+        ürün_kaydet_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ürün_kaydet_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ürün_kaydet_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hayvan_kaydet_btnActionPerformed(evt);
+                ürün_kaydet_btnActionPerformed(evt);
             }
         });
 
-        hayvan_duzenle_btn.setBackground(new java.awt.Color(255, 204, 204));
-        hayvan_duzenle_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
-        hayvan_duzenle_btn.setText("DÜZENLE");
-        hayvan_duzenle_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        hayvan_duzenle_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hayvan_duzenle_btn.addActionListener(new java.awt.event.ActionListener() {
+        ürün_duzenle_btn.setBackground(new java.awt.Color(255, 204, 204));
+        ürün_duzenle_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
+        ürün_duzenle_btn.setText("DÜZENLE");
+        ürün_duzenle_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ürün_duzenle_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ürün_duzenle_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hayvan_duzenle_btnActionPerformed(evt);
+                ürün_duzenle_btnActionPerformed(evt);
             }
         });
 
-        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTable1.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        productsTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        productsTable.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
+        productsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -121,9 +132,14 @@ public class products extends javax.swing.JFrame {
                 "ID", "Tür", "Miktar", "Fiyat"
             }
         ));
-        jTable1.setRowHeight(30);
-        jTable1.setRowMargin(2);
-        jScrollPane1.setViewportView(jTable1);
+        productsTable.setRowHeight(30);
+        productsTable.setRowMargin(2);
+        productsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productsTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(productsTable);
 
         jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
         jLabel15.setText("ÜRÜN LISTESI");
@@ -226,7 +242,7 @@ public class products extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,13 +286,28 @@ public class products extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
         jLabel14.setText("FIYAT");
 
-        username_field5.setBackground(new java.awt.Color(245, 245, 245));
+        ıd_field.setBackground(new java.awt.Color(245, 245, 245));
+        ıd_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ıd_fieldActionPerformed(evt);
+            }
+        });
 
-        username_field6.setBackground(new java.awt.Color(245, 245, 245));
+        productquantity_field.setBackground(new java.awt.Color(245, 245, 245));
+        productquantity_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productquantity_fieldActionPerformed(evt);
+            }
+        });
 
-        username_field7.setBackground(new java.awt.Color(245, 245, 245));
+        productprice_field.setBackground(new java.awt.Color(245, 245, 245));
+        productprice_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productprice_fieldActionPerformed(evt);
+            }
+        });
 
-        username_field8.setBackground(new java.awt.Color(245, 245, 245));
+        productname_field.setBackground(new java.awt.Color(245, 245, 245));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mewo-removebg-preview 1.png"))); // NOI18N
 
@@ -294,20 +325,20 @@ public class products extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(jLabel14))
                         .addGap(28, 28, 28))
-                    .addComponent(hayvan_kaydet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ürün_kaydet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(hayvan_sil_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ürün_sil_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(hayvan_duzenle_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ürün_duzenle_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(username_field5, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                            .addComponent(username_field6)
-                            .addComponent(username_field7)
-                            .addComponent(username_field8, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                            .addComponent(ıd_field, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                            .addComponent(productquantity_field)
+                            .addComponent(productprice_field)
+                            .addComponent(productname_field, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21))
@@ -331,27 +362,27 @@ public class products extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(username_field5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ıd_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(productname_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(username_field6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(productquantity_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(username_field7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(productprice_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hayvan_sil_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hayvan_kaydet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hayvan_duzenle_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(ürün_sil_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ürün_kaydet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ürün_duzenle_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -369,23 +400,146 @@ public class products extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void hayvan_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_sil_btnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hayvan_sil_btnActionPerformed
+    private void ürün_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ürün_sil_btnActionPerformed
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        try {
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");            Ps = (PreparedStatement) Con.prepareStatement("delete from Users where UserName = ?");
 
-    private void hayvan_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_kaydet_btnActionPerformed
+            int selectedRowIndex = productsTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+                String productName = (String) productsTable.getValueAt(selectedRowIndex, 0);
+                Ps.setString(1, productName);
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Kullanıcı Silindi");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sileceğiniz kullancıyı seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayProducts();
+        } catch (SQLException ex) {
+            Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // TODO add your handling code here:
-    }//GEN-LAST:event_hayvan_kaydet_btnActionPerformed
+    }//GEN-LAST:event_ürün_sil_btnActionPerformed
 
-    private void hayvan_duzenle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_duzenle_btnActionPerformed
+    private void ürün_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ürün_kaydet_btnActionPerformed
+         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        if (ıd_field.getText().isEmpty() || productname_field.getText().isEmpty() || productquantity_field.getText().isEmpty() || productprice_field.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+        } else {
+            try {
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(name, address, phoneNumber) VALUES(?,?,?)");
+                Ps.setString(1, ıd_field.getText());
+                Ps.setString(2, productname_field.getText());
+                Ps.setString(3, productquantity_field.getText());
+                Ps.setString(3, productprice_field.getText());
+                Ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Ürün Eklendi");
+                Con.close();
+                displayProducts();
+            } catch (SQLException ex) {
+                Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex);
+            }
+        }
         // TODO add your handling code here:
-    }//GEN-LAST:event_hayvan_duzenle_btnActionPerformed
+    }//GEN-LAST:event_ürün_kaydet_btnActionPerformed
 
+    private void ürün_duzenle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ürün_duzenle_btnActionPerformed
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set name = ? , address = ? where phoneNumber = ?");
+
+            int selectedRowIndex = productsTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+
+                String oldProductId = (String) productsTable.getValueAt(selectedRowIndex, 0);
+                if (ıd_field.getText().isEmpty() || productname_field.getText().isEmpty() || productquantity_field.getText().isEmpty()|| productprice_field.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+                } else {
+                    Ps.setString(1, ıd_field.getText());
+                    Ps.setString(2, productname_field.getText());
+                    Ps.setString(2, productquantity_field.getText());
+                    Ps.setString(2, productprice_field.getText());
+                    Ps.setString(3, oldProductId);
+                    Ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Müşteri Güncellendi");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz müşteriyi seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayProducts();
+        } catch (SQLException ex) {
+            Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ürün_duzenle_btnActionPerformed
+    private void displayProducts() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+
+        St = Con.createStatement();
+        Rs = St.executeQuery("Select * from Products");
+
+        ResultSetMetaData metaData = Rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        String[] columnNames = new String[columnCount];
+        for (int i = 1; i <= columnCount; i++) {
+            columnNames[i - 1] = metaData.getColumnName(i);
+        }
+
+        // DefaultTableModel nesnesini oluştur ve sütun bilgilerini ekle
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        // ResultSet nesnesinden verileri tabloya ekle
+        while (Rs.next()) {
+            Object[] row = new Object[columnCount];
+            for (int i = 1; i <= columnCount; i++) {
+                row[i - 1] = Rs.getObject(i);
+            }
+            tableModel.addRow(row);
+        }
+
+        // JTable nesnesini oluştur ve verileri ekleyerek göster
+        productsTable.setModel(tableModel);
+        //JOptionPane.showMessageDialog(null, new JScrollPane(table), "Table", JOptionPane.PLAIN_MESSAGE);
+
+        // Kaynakları serbest bırak
+        Rs.close();
+        St.close();
+        Con.close();
+    }
     private void pets_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pets_btn
         // TODO add your handling code here:
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
-		new pets().setVisible(true);
+                try {
+                    new pets().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
+                }
 	    });
     }//GEN-LAST:event_pets_btn
 
@@ -433,6 +587,28 @@ public class products extends javax.swing.JFrame {
 	    });
     }//GEN-LAST:event_logout_btn
 
+    private void ıd_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ıd_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ıd_fieldActionPerformed
+
+    private void productprice_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productprice_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productprice_fieldActionPerformed
+
+    private void productquantity_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productquantity_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productquantity_fieldActionPerformed
+
+    private void productsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsTableMouseClicked
+        int selectedRowIndex = productsTable.getSelectedRow();
+        ıd_field.setText((String) productsTable.getValueAt(selectedRowIndex, 0));
+        productname_field.setText((String) productsTable.getValueAt(selectedRowIndex, 1));
+        productquantity_field.setText((String) productsTable.getValueAt(selectedRowIndex, 2));
+        productprice_field.setText((String) productsTable.getValueAt(selectedRowIndex, 1));
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productsTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -469,9 +645,6 @@ public class products extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton hayvan_duzenle_btn;
-    private javax.swing.JButton hayvan_kaydet_btn;
-    private javax.swing.JButton hayvan_sil_btn;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -494,10 +667,13 @@ public class products extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField username_field5;
-    private javax.swing.JTextField username_field6;
-    private javax.swing.JTextField username_field7;
-    private javax.swing.JTextField username_field8;
+    private javax.swing.JTextField productname_field;
+    private javax.swing.JTextField productprice_field;
+    private javax.swing.JTextField productquantity_field;
+    private javax.swing.JTable productsTable;
+    private javax.swing.JButton ürün_duzenle_btn;
+    private javax.swing.JButton ürün_kaydet_btn;
+    private javax.swing.JButton ürün_sil_btn;
+    private javax.swing.JTextField ıd_field;
     // End of variables declaration//GEN-END:variables
 }

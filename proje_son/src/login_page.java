@@ -1,4 +1,7 @@
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -221,7 +224,11 @@ public class login_page extends javax.swing.JFrame {
         if(username.equals("yildiz") && password.equals("1234")){
             dispose();
             java.awt.EventQueue.invokeLater(() -> {
-                new pets().setVisible(true);
+                try {
+                    new pets().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
+                }
             });
         }
 

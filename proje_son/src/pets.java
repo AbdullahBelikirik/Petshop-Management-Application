@@ -29,10 +29,11 @@ public class pets extends javax.swing.JFrame {
     /**
      * Creates new form pets
      */
-    public pets() {
+    public pets() throws SQLException {
         initComponents();
+        displayPets();
     }
-
+                 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,6 +129,11 @@ public class pets extends javax.swing.JFrame {
         ));
         petsTable.setRowHeight(30);
         petsTable.setRowMargin(2);
+        petsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                petsTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(petsTable);
 
         jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
@@ -267,14 +273,14 @@ public class pets extends javax.swing.JFrame {
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -411,8 +417,8 @@ public class pets extends javax.swing.JFrame {
 
             int selectedRowIndex = petsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
-                String userName = (String) petsTable.getValueAt(selectedRowIndex, 0);
-                Ps.setString(1, userName);
+                String petName = (String) petsTable.getValueAt(selectedRowIndex, 0);
+                Ps.setString(1, petName);
                 Ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Hayvan Silindi");
             } else {
@@ -422,7 +428,7 @@ public class pets extends javax.swing.JFrame {
             Con.close();
             displayPets();
         } catch (SQLException ex) {
-            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_hayvan_sil_btnActionPerformed
@@ -457,7 +463,7 @@ public class pets extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
@@ -483,7 +489,7 @@ public class pets extends javax.swing.JFrame {
             Con.close();
             displayPets();
         } catch (SQLException ex) {
-            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex);
         }
         // TODO add your handling code here:
@@ -545,6 +551,13 @@ public class pets extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ıd_fieldActionPerformed
 
+    private void petsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_petsTableMouseClicked
+        int selectedRowIndex = petsTable.getSelectedRow();
+        ıd_field.setText((String) petsTable.getValueAt(selectedRowIndex, 0));
+        species_field.setText((String) petsTable.getValueAt(selectedRowIndex, 1));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_petsTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -574,7 +587,11 @@ public class pets extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new pets().setVisible(true);
+            try {
+                new pets().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
