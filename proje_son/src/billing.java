@@ -1,6 +1,7 @@
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.util.locale.LocaleUtils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -407,13 +408,31 @@ public class billing extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    int row = 0;
     private void fise_ekle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fise_ekle_btnActionPerformed
         // TODO add your handling code here:
+        if(username_field1.getText().isEmpty() ||username_field4.getText().isEmpty() ||username_field5.getText().isEmpty() ||username_field6.getText().isEmpty() ||username_field3.getText().isEmpty()){
+        }
+        
+        //Buraya username_field6 kısmına girilen Urun IDsinin veritabanında bulunmadığı ile ilgili bir else if bloğu yazılabilir.
+        else{
+            jTable2.setValueAt(username_field6.getText(),row,0);
+            jTable2.setValueAt(username_field3.getText(),row,1);
+            jTable2.setValueAt( "BURAYA FIYAT BILGISI GELCEK" ,row,2);
+            jTable2.setValueAt(username_field4.getText(),row,3);
+            jTable2.setValueAt(username_field1.getText(),row,4);
+            jTable2.setValueAt(username_field1.getText(),row,5);
+            row++;
+        }
     }//GEN-LAST:event_fise_ekle_btnActionPerformed
 
     private void fis_print_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fis_print_btnActionPerformed
         // TODO add your handling code here:
+        try {
+            jTable2.print();
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_fis_print_btnActionPerformed
 
     private void fatura_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fatura_kaydet_btnActionPerformed
