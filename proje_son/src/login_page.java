@@ -1,4 +1,8 @@
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -210,6 +214,58 @@ public class login_page extends javax.swing.JFrame {
         String username = username_field.getText();
         String password = new String( password_field.getPassword());
         String message;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        Connection Con = null;
+        PreparedStatement Ps = null;
+        ResultSet Rs = null;
+        try {
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+        } catch (SQLException ex) {
+            Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Ps = (PreparedStatement) Con.prepareStatement("select * from Users where UserName = ? and UserPassword = ?",ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            Ps.setString(1, username);
+            Ps.setString(2, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Rs = Ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        try {
+            if(Rs.first()){
+                message="Hosgeldiniz"+" "+username;
+                JOptionPane.showMessageDialog(this, message);
+                dispose();
+                java.awt.EventQueue.invokeLater(() -> {
+                    try {
+                        new pets().setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+            }
+            else{
+                message="Hatali kullanici adi veya sifre!";
+                JOptionPane.showMessageDialog(this, message);
+                username_field.setText("");
+                password_field.setText("");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex) ;
+        }
+/*        String username = username_field.getText();
+        String password = new String( password_field.getPassword());
+        String message;
 
         if(username.equals("yildiz") && password.equals("1234")){
             message="Hosgeldiniz"+" "+username;
@@ -231,7 +287,7 @@ public class login_page extends javax.swing.JFrame {
                 }
             });
         }
-
+*/
     }//GEN-LAST:event_login_btnActionPerformed
 
     private void close_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_btnActionPerformed

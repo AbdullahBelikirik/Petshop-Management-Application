@@ -154,6 +154,11 @@ public class customers extends javax.swing.JFrame {
         ));
         customerTable.setRowHeight(30);
         customerTable.setRowMargin(2);
+        customerTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customerTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(customerTable);
 
         jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
@@ -666,6 +671,15 @@ public class customers extends javax.swing.JFrame {
             new login_page().setVisible(true);
         });
     }//GEN-LAST:event_logout_btn
+
+    private void customerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerTableMouseClicked
+        int selectedRowIndex = customerTable.getSelectedRow();
+        customername_field.setText((String) customerTable.getValueAt(selectedRowIndex, 0));
+        address_field.setText((String) customerTable.getValueAt(selectedRowIndex, 1));
+        phoneNumber_field.setText((String) customerTable.getValueAt(selectedRowIndex, 2));
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_customerTableMouseClicked
 
     /**
      * @param args the command line arguments

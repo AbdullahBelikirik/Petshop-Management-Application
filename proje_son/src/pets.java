@@ -472,13 +472,13 @@ public class pets extends javax.swing.JFrame {
             int selectedRowIndex = petsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
 
-                String oldUserName = (String) petsTable.getValueAt(selectedRowIndex, 0);
+                String oldPetName = (String) petsTable.getValueAt(selectedRowIndex, 0);
                 if (ıd_field.getText().isEmpty() || species_field.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Eksik Bilgi");
                 } else {
                     Ps.setString(1, ıd_field.getText());
                     Ps.setString(2, species_field.getText());
-                    Ps.setString(3, oldUserName);
+                    Ps.setString(3, oldPetName);
                     Ps.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Kullanıcı Güncellendi");
                 }

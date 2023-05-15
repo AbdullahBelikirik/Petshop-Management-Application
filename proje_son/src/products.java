@@ -414,9 +414,9 @@ public class products extends javax.swing.JFrame {
                 String productName = (String) productsTable.getValueAt(selectedRowIndex, 0);
                 Ps.setString(1, productName);
                 Ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Kullanıcı Silindi");
+                JOptionPane.showMessageDialog(this, "Ürün Silindi");
             } else {
-                JOptionPane.showMessageDialog(this, "Sileceğiniz kullancıyı seçmeniz gerekmektedir");
+                JOptionPane.showMessageDialog(this, "Sileceğiniz ürünü seçmeniz gerekmektedir");
             }
             Ps.close();
             Con.close();
@@ -438,11 +438,11 @@ public class products extends javax.swing.JFrame {
         } else {
             try {
                 Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-                Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(name, address, phoneNumber) VALUES(?,?,?)");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Products(id, productsname, productquantity, productprice) VALUES(?,?,?,?)");
                 Ps.setString(1, ıd_field.getText());
                 Ps.setString(2, productname_field.getText());
                 Ps.setString(3, productquantity_field.getText());
-                Ps.setString(3, productprice_field.getText());
+                Ps.setString(4, productprice_field.getText());
                 Ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Ürün Eklendi");
                 Con.close();
@@ -463,7 +463,7 @@ public class products extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set name = ? , address = ? where phoneNumber = ?");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set id = ? , productsname = ? , productquantity = ? where productprice = ?");
 
             int selectedRowIndex = productsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
@@ -474,14 +474,14 @@ public class products extends javax.swing.JFrame {
                 } else {
                     Ps.setString(1, ıd_field.getText());
                     Ps.setString(2, productname_field.getText());
-                    Ps.setString(2, productquantity_field.getText());
-                    Ps.setString(2, productprice_field.getText());
-                    Ps.setString(3, oldProductId);
+                    Ps.setString(3, productquantity_field.getText());
+                    Ps.setString(4, productprice_field.getText());
+                    Ps.setString(5, oldProductId);
                     Ps.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Müşteri Güncellendi");
+                    JOptionPane.showMessageDialog(this, "Üürn Güncellendi");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz müşteriyi seçmeniz gerekmektedir");
+                JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz ürünü seçmeniz gerekmektedir");
             }
             Ps.close();
             Con.close();
@@ -604,7 +604,7 @@ public class products extends javax.swing.JFrame {
         ıd_field.setText((String) productsTable.getValueAt(selectedRowIndex, 0));
         productname_field.setText((String) productsTable.getValueAt(selectedRowIndex, 1));
         productquantity_field.setText((String) productsTable.getValueAt(selectedRowIndex, 2));
-        productprice_field.setText((String) productsTable.getValueAt(selectedRowIndex, 1));
+        productprice_field.setText((String) productsTable.getValueAt(selectedRowIndex, 3));
 
         // TODO add your handling code here:
     }//GEN-LAST:event_productsTableMouseClicked
