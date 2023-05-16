@@ -27,13 +27,14 @@ public class products extends javax.swing.JFrame {
     PreparedStatement Ps = null;
     ResultSet Rs = null;
     Statement St = null;
-    /**
-     * Creates new form products
-     */
-    public products() {
+    
+   public static int a;
+    
+    public products() throws SQLException {
         initComponents();
+        displayProducts();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -639,7 +640,11 @@ public class products extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new products().setVisible(true);
+                try {
+                    new products().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -676,4 +681,5 @@ public class products extends javax.swing.JFrame {
     private javax.swing.JButton ürün_sil_btn;
     private javax.swing.JTextField ıd_field;
     // End of variables declaration//GEN-END:variables
+
 }

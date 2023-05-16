@@ -34,7 +34,9 @@ public class customers extends javax.swing.JFrame {
         initComponents();
         displayCustomers();
     }
-
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -660,7 +662,11 @@ public class customers extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
         java.awt.EventQueue.invokeLater(() -> {
-            new products().setVisible(true);
+            try {
+                new products().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }//GEN-LAST:event_products_btn
 

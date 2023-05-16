@@ -535,7 +535,11 @@ public class pets extends javax.swing.JFrame {
         // TODO add your handling code here:
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
-		new products().setVisible(true);
+                try {
+                    new products().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
+                }
 	    });
     }//GEN-LAST:event_products_btn
 

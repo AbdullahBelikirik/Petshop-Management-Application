@@ -488,7 +488,11 @@ public class billing extends javax.swing.JFrame {
         // TODO add your handling code here:
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
-		new products().setVisible(true);
+                try {
+                    new products().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(billing.class.getName()).log(Level.SEVERE, null, ex);
+                }
 	    });
     }//GEN-LAST:event_products_btn
 

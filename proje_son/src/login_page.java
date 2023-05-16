@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,13 +19,10 @@ import javax.swing.JOptionPane;
  */
 public class login_page extends javax.swing.JFrame {
 
-    /**
-     * Creates new form login_page
-     */
     public login_page() {
         initComponents();
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -240,7 +236,7 @@ public class login_page extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
+        
         try {
             if(Rs.first()){
                 message="Hosgeldiniz"+" "+username;
@@ -261,33 +257,8 @@ public class login_page extends javax.swing.JFrame {
                 password_field.setText("");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex) ;
-        }
-/*        String username = username_field.getText();
-        String password = new String( password_field.getPassword());
-        String message;
-
-        if(username.equals("yildiz") && password.equals("1234")){
-            message="Hosgeldiniz"+" "+username;
+            Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else{
-            message="Hatali kullanici adi veya sifre!";
-        }
-        JOptionPane.showMessageDialog(this, message);
-        username_field.setText("");
-        password_field.setText("");
-
-        if(username.equals("yildiz") && password.equals("1234")){
-            dispose();
-            java.awt.EventQueue.invokeLater(() -> {
-                try {
-                    new pets().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-        }
-*/
     }//GEN-LAST:event_login_btnActionPerformed
 
     private void close_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_btnActionPerformed
