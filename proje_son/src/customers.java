@@ -459,7 +459,7 @@ public class customers extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set name = ? , address = ? where phoneNumber = ?");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Customers Set name = ? , address = ? , phoneNumber = ? where name=?");
 
             int selectedRowIndex = customerTable.getSelectedRow();
             if (selectedRowIndex != -1) {
@@ -470,9 +470,9 @@ public class customers extends javax.swing.JFrame {
                 } else {
                     Ps.setString(1, customername_field.getText());
                     Ps.setString(2, address_field.getText());
-                    Ps.setString(2, phoneNumber_field.getText());
+                    Ps.setString(3, phoneNumber_field.getText());
 
-                    Ps.setString(3, oldCustomerName);
+                    Ps.setString(4, oldCustomerName);
                     Ps.executeUpdate();
                     JOptionPane.showMessageDialog(this, "Müşteri Güncellendi");
                 }

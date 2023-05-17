@@ -417,7 +417,7 @@ public class pets extends javax.swing.JFrame {
 
             int selectedRowIndex = petsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
-                String petName = (String) petsTable.getValueAt(selectedRowIndex, 0);
+                String petName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
                 Ps.setString(1, petName);
                 Ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Hayvan Silindi");
@@ -472,7 +472,7 @@ public class pets extends javax.swing.JFrame {
             int selectedRowIndex = petsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
 
-                String oldPetName = (String) petsTable.getValueAt(selectedRowIndex, 0);
+                String oldPetName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
                 if (ıd_field.getText().isEmpty() || species_field.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Eksik Bilgi");
                 } else {
@@ -480,7 +480,7 @@ public class pets extends javax.swing.JFrame {
                     Ps.setString(2, species_field.getText());
                     Ps.setString(3, oldPetName);
                     Ps.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Kullanıcı Güncellendi");
+                    JOptionPane.showMessageDialog(this, "Hayvan Güncellendi");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz kullancıyı seçmeniz gerekmektedir");
@@ -557,7 +557,7 @@ public class pets extends javax.swing.JFrame {
 
     private void petsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_petsTableMouseClicked
         int selectedRowIndex = petsTable.getSelectedRow();
-        ıd_field.setText((String) petsTable.getValueAt(selectedRowIndex, 0));
+        ıd_field.setText((String) petsTable.getValueAt(selectedRowIndex, 0).toString());
         species_field.setText((String) petsTable.getValueAt(selectedRowIndex, 1));
         // TODO add your handling code here:
     }//GEN-LAST:event_petsTableMouseClicked

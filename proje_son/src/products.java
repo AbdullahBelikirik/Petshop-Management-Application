@@ -409,11 +409,13 @@ public class products extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");            Ps = (PreparedStatement) Con.prepareStatement("delete from Users where UserName = ?");
-
+            Ps = (PreparedStatement) Con.prepareStatement("delete from Products where id = ?");
+            
+            
             int selectedRowIndex = productsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
-                String productName = (String) productsTable.getValueAt(selectedRowIndex, 0);
-                Ps.setString(1, productName);
+                String id = (String) productsTable.getValueAt(selectedRowIndex, 0).toString();
+                Ps.setString(1, id);
                 Ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Ürün Silindi");
             } else {
@@ -464,12 +466,12 @@ public class products extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set id = ? , productsname = ? , productquantity = ? where productprice = ?");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Products Set id = ? , productsname = ? , productquantity = ? , productprice = ? where id=?");
 
             int selectedRowIndex = productsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
 
-                String oldProductId = (String) productsTable.getValueAt(selectedRowIndex, 0);
+                String oldProductId = (String) productsTable.getValueAt(selectedRowIndex, 0).toString();
                 if (ıd_field.getText().isEmpty() || productname_field.getText().isEmpty() || productquantity_field.getText().isEmpty()|| productprice_field.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Eksik Bilgi");
                 } else {
@@ -479,7 +481,7 @@ public class products extends javax.swing.JFrame {
                     Ps.setString(4, productprice_field.getText());
                     Ps.setString(5, oldProductId);
                     Ps.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Üürn Güncellendi");
+                    JOptionPane.showMessageDialog(this, "Ürün Güncellendi");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz ürünü seçmeniz gerekmektedir");
@@ -602,7 +604,7 @@ public class products extends javax.swing.JFrame {
 
     private void productsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsTableMouseClicked
         int selectedRowIndex = productsTable.getSelectedRow();
-        ıd_field.setText((String) productsTable.getValueAt(selectedRowIndex, 0));
+        ıd_field.setText((String) productsTable.getValueAt(selectedRowIndex, 0).toString());
         productname_field.setText((String) productsTable.getValueAt(selectedRowIndex, 1));
         productquantity_field.setText((String) productsTable.getValueAt(selectedRowIndex, 2));
         productprice_field.setText((String) productsTable.getValueAt(selectedRowIndex, 3));
