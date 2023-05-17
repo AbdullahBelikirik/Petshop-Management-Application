@@ -118,7 +118,6 @@ public class login_page extends javax.swing.JFrame {
         username_field.setBackground(new java.awt.Color(245, 245, 245));
 
         password_field.setBackground(new java.awt.Color(245, 245, 245));
-        password_field.setText("jPasswordField1");
 
         login_btn.setBackground(new java.awt.Color(245, 171, 198));
         login_btn.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N

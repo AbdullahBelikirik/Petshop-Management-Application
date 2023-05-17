@@ -296,7 +296,7 @@
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="3" rowCount="4">
-                    <Column editable="true" title="Ad" type="java.lang.Object"/>
+                    <Column editable="true" title="M&#xfc;steri Ad&#x131;" type="java.lang.Object"/>
                     <Column editable="true" title="Adres" type="java.lang.Object"/>
                     <Column editable="true" title="Telefon Numaras&#x131;" type="java.lang.Object"/>
                   </Table>
@@ -429,7 +429,7 @@
                               <Component id="jLabel9" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="8" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel17" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
               </Group>

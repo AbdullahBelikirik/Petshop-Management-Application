@@ -130,13 +130,13 @@ public class users extends javax.swing.JFrame {
         userTable.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Ad", "Sifre"
+                "Kullanıcı Adı"
             }
         ));
         userTable.setRowHeight(30);
@@ -147,6 +147,9 @@ public class users extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(userTable);
+        if (userTable.getColumnModel().getColumnCount() > 0) {
+            userTable.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
         jLabel15.setText("KULLANICI LISTESI");

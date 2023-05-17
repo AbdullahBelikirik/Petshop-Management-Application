@@ -60,8 +60,6 @@ public class billing extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        username_field5 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,7 +89,7 @@ public class billing extends javax.swing.JFrame {
 
         fis_print_btn.setBackground(new java.awt.Color(255, 204, 204));
         fis_print_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
-        fis_print_btn.setText("FISI BASTIR");
+        fis_print_btn.setText("FATURAYI BASTIR");
         fis_print_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         fis_print_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         fis_print_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +101,7 @@ public class billing extends javax.swing.JFrame {
         username_field4.setBackground(new java.awt.Color(245, 245, 245));
 
         fise_ekle_btn.setBackground(new java.awt.Color(255, 204, 204));
-        fise_ekle_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 13)); // NOI18N
+        fise_ekle_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
         fise_ekle_btn.setText("FISE EKLE");
         fise_ekle_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         fise_ekle_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -122,23 +120,23 @@ public class billing extends javax.swing.JFrame {
         username_field3.setBackground(new java.awt.Color(245, 245, 245));
 
         jLabel20.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
-        jLabel20.setText("MÜSTERININ FISI");
+        jLabel20.setText("MÜSTERI FATURASI");
 
         jTable2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTable2.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Ad", "Miktar", "Fiyat", "Müsteri TC", "Müsteri Adı", "Kullancı Adı"
+                "Müsteri Adı", "Miktar", "Fiyat", "Müsteri TC"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, false, true, true
+                true, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -291,14 +289,9 @@ public class billing extends javax.swing.JFrame {
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        jLabel15.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
-        jLabel15.setText("KULLANICI ID");
-
-        username_field5.setBackground(new java.awt.Color(245, 245, 245));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mewo-removebg-preview 1.png"))); // NOI18N
 
@@ -310,8 +303,8 @@ public class billing extends javax.swing.JFrame {
                 .addGap(257, 757, Short.MAX_VALUE)
                 .addComponent(fatura_kaydet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
-                .addComponent(fis_print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(146, 146, 146))
+                .addComponent(fis_print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -325,11 +318,6 @@ public class billing extends javax.swing.JFrame {
                                 .addComponent(jLabel18)
                                 .addGap(81, 81, 81)
                                 .addComponent(username_field3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel15)
-                        .addGap(18, 18, 18)
-                        .addComponent(username_field5, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,17 +348,10 @@ public class billing extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(username_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1))))
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -378,15 +359,15 @@ public class billing extends javax.swing.JFrame {
                             .addComponent(fis_print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fatura_kaydet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
+                        .addGap(65, 65, 65)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(username_field4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(username_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(username_field5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(username_field4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(83, 83, 83)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(username_field6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -417,7 +398,7 @@ public class billing extends javax.swing.JFrame {
     int row = 0;
     private void fise_ekle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fise_ekle_btnActionPerformed
         // TODO add your handling code here:
-        if(username_field1.getText().isEmpty() ||username_field4.getText().isEmpty() ||username_field5.getText().isEmpty() ||username_field6.getText().isEmpty() ||username_field3.getText().isEmpty()){
+        if(username_field1.getText().isEmpty() ||username_field4.getText().isEmpty()  ||username_field6.getText().isEmpty() ||username_field3.getText().isEmpty()){
         }
         
         //Buraya username_field6 kısmına girilen Urun IDsinin veritabanında bulunmadığı ile ilgili bir else if bloğu yazılabilir.
@@ -555,7 +536,6 @@ public class billing extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -572,7 +552,6 @@ public class billing extends javax.swing.JFrame {
     private javax.swing.JTextField username_field1;
     private javax.swing.JTextField username_field3;
     private javax.swing.JTextField username_field4;
-    private javax.swing.JTextField username_field5;
     private javax.swing.JTextField username_field6;
     // End of variables declaration//GEN-END:variables
 }
