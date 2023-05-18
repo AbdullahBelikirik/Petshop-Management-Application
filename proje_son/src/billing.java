@@ -69,7 +69,7 @@ public class billing extends javax.swing.JFrame {
         jPanel4.setPreferredSize(new java.awt.Dimension(1204, 650));
 
         jLabel11.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
-        jLabel11.setText("MÜSTERI");
+        jLabel11.setText("MÜSTERI ADI");
 
         jLabel14.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
         jLabel14.setText("MUSTERI TC");
@@ -126,17 +126,17 @@ public class billing extends javax.swing.JFrame {
         jTable2.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Müsteri Adı", "Miktar", "Fiyat", "Müsteri TC"
+                "Ürün Adı", "Ürün Miktari", "Ürün Fiyatı"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, false
+                true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
