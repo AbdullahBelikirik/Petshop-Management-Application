@@ -129,10 +129,6 @@ public class billing extends javax.swing.JFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -293,7 +289,7 @@ public class billing extends javax.swing.JFrame {
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -411,6 +407,8 @@ public class billing extends javax.swing.JFrame {
             jTable2.setValueAt(username_field3.getText(),row,1);
             jTable2.setValueAt( "BURAYA FIYAT BILGISI GELCEK" ,row,2);
             jTable2.setValueAt(username_field4.getText(),row,3);
+            jTable2.setValueAt(username_field1.getText(),row,4);
+            jTable2.setValueAt(username_field1.getText(),row,5);
             row++;
         }
     }//GEN-LAST:event_fise_ekle_btnActionPerformed
