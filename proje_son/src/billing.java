@@ -2,6 +2,18 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sun.util.locale.LocaleUtils;
+import javax.swing.JPanel;
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -126,6 +138,9 @@ public class billing extends javax.swing.JFrame {
         jTable2.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -289,7 +304,7 @@ public class billing extends javax.swing.JFrame {
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -403,12 +418,9 @@ public class billing extends javax.swing.JFrame {
         
         //Buraya username_field6 kısmına girilen Urun IDsinin veritabanında bulunmadığı ile ilgili bir else if bloğu yazılabilir.
         else{
-            jTable2.setValueAt(username_field6.getText(),row,0);
+            jTable2.setValueAt("AD",row,0);
             jTable2.setValueAt(username_field3.getText(),row,1);
-            jTable2.setValueAt( "BURAYA FIYAT BILGISI GELCEK" ,row,2);
-            jTable2.setValueAt(username_field4.getText(),row,3);
-            jTable2.setValueAt(username_field1.getText(),row,4);
-            jTable2.setValueAt(username_field1.getText(),row,5);
+            jTable2.setValueAt( "FIYAT" ,row,2);
             row++;
         }
     }//GEN-LAST:event_fise_ekle_btnActionPerformed
@@ -416,8 +428,69 @@ public class billing extends javax.swing.JFrame {
     private void fis_print_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fis_print_btnActionPerformed
         // TODO add your handling code here:
         try {
-            jTable2.print();
-        } catch (Exception e) {
+            
+            
+            
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.20yy    HH:mm");
+            String formattedDateTime = now.format(formatter);
+            System.out.println(formattedDateTime);
+            
+            
+            
+            // Yeni bir PDF belgesi oluştur
+            PDDocument document = new PDDocument();
+
+            // Yeni bir sayfa oluştur
+            PDPage page = new PDPage(PDRectangle.A4);
+            document.addPage(page);
+
+            // Sayfa içeriği için bir PDPageContentStream oluştur
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            // Font dosyasını yükleyin
+            PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\fone\\Desktop\\Yeni klasör (2)\\calibri-regular.ttf"));
+
+            // Metni belgeye ekle
+            contentStream.setFont(font, 24);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(190, 780);
+            contentStream.showText("YILDIZ PETSHOP FATURA");
+            contentStream.setFont(font, 13);
+            contentStream.newLineAtOffset(300,40);
+            contentStream.showText(formattedDateTime);
+            contentStream.setFont(font, 14);
+            contentStream.newLineAtOffset(-400, -80);
+            contentStream.showText("Urun Adi");
+            contentStream.newLineAtOffset(200, 0);
+            contentStream.showText("Adet");
+            contentStream.newLineAtOffset(200, 0);
+            contentStream.showText("Fiyat");
+            contentStream.newLineAtOffset(0, -20);
+            for(int i = 0;i<row;i++){
+                
+                contentStream.newLineAtOffset(-400, -20);
+                contentStream.showText(jTable2.getValueAt(i, 0).toString());
+                contentStream.newLineAtOffset(200, 0);
+                contentStream.showText(jTable2.getValueAt(i, 1).toString());
+                contentStream.newLineAtOffset(200, 0);
+                contentStream.showText(jTable2.getValueAt(i, 2).toString());
+                
+            }
+            contentStream.endText();
+
+            // İçerik akışını kapat
+            contentStream.close();
+
+            // PDF belgesini kaydet
+            document.save(new File("MMMOOO.pdf"));
+
+            // PDF belgesini kapat
+            document.close();
+
+            System.out.println("PDF dosyası oluşturuldu.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_fis_print_btnActionPerformed
 
