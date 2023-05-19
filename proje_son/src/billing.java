@@ -441,7 +441,7 @@ public class billing extends javax.swing.JFrame {
                     else{
                         BillingTable.setValueAt(Rs.getString("Urun Turu"),row,0);
                         BillingTable.setValueAt(quant_field.getText(),row,1);
-                        BillingTable.setValueAt( Rs.getString("Urun Fiyati"),row,2);
+                        BillingTable.setValueAt( Integer.valueOf(quant_field.getText())* Integer.valueOf(Rs.getString("Urun Fiyati")),row,2);
                         row++;
                     }
                     totalPrice += Integer.valueOf(quant_field.getText())* Integer.valueOf(Rs.getString("Urun Fiyati"));
