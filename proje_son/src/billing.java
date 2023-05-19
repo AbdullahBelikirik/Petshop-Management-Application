@@ -479,7 +479,7 @@ public class billing extends javax.swing.JFrame {
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
             // Font dosyasını yükleyin
-            PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\Abdullah\\Desktop\\Yeni klasör"));
+            PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\fatura"));
 
             // Metni belgeye ekle
             contentStream.setFont(font, 24);
