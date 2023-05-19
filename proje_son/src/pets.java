@@ -69,6 +69,7 @@ public class pets extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         species_field = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        hayvan_sahiplendir_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -280,13 +281,24 @@ public class pets extends javax.swing.JFrame {
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         species_field.setBackground(new java.awt.Color(245, 245, 245));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mewo-removebg-preview 1.png"))); // NOI18N
+
+        hayvan_sahiplendir_btn.setBackground(new java.awt.Color(255, 204, 204));
+        hayvan_sahiplendir_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
+        hayvan_sahiplendir_btn.setText("SAHIPLENDIR");
+        hayvan_sahiplendir_btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        hayvan_sahiplendir_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        hayvan_sahiplendir_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hayvan_sahiplendir_btnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -312,15 +324,21 @@ public class pets extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(species_field, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ıd_field, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(hayvan_sahiplendir_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -348,7 +366,8 @@ public class pets extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hayvan_sil_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hayvan_kaydet_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hayvan_duzenle_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hayvan_duzenle_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hayvan_sahiplendir_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37))
         );
 
@@ -562,6 +581,43 @@ public class pets extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_petsTableMouseClicked
 
+    private void hayvan_sahiplendir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_sahiplendir_btnActionPerformed
+         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Pets Set `Hayvan ID` = ? , `Hayvan Turu` = ? where `Hayvan ID` = ?");
+
+            int selectedRowIndex = petsTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+
+                String oldPetName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
+                if (ıd_field.getText().isEmpty() || species_field.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Eksik Bilgi");
+                } else {
+                    int id = Integer.parseInt(ıd_field.getText()) * (-1);
+                    Ps.setString(1, String.valueOf(id));
+                    Ps.setString(2, species_field.getText());
+                    Ps.setString(3, oldPetName);
+                    Ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Hayvan Shiplendirildi");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Shiplendireceğiniz hayvanı seçmeniz gerekmektedir");
+            }
+            Ps.close();
+            Con.close();
+            displayPets();
+        } catch (SQLException ex) {
+            Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hayvan_sahiplendir_btnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -602,6 +658,7 @@ public class pets extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton hayvan_duzenle_btn;
     private javax.swing.JButton hayvan_kaydet_btn;
+    private javax.swing.JButton hayvan_sahiplendir_btn;
     private javax.swing.JButton hayvan_sil_btn;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

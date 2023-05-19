@@ -384,7 +384,7 @@ public class users extends javax.swing.JFrame {
         }
         Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
         St = Con.createStatement();
-        Rs = St.executeQuery("Select * from Users");
+        Rs = St.executeQuery("Select `Kullanici Adi` from Users");
 
         ResultSetMetaData metaData = Rs.getMetaData();
         int columnCount = metaData.getColumnCount();
