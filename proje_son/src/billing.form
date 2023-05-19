@@ -64,8 +64,8 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="username_field1" min="-2" pref="285" max="-2" attributes="0"/>
-                              <Component id="username_field4" min="-2" pref="285" max="-2" attributes="0"/>
+                              <Component id="name_field" min="-2" pref="285" max="-2" attributes="0"/>
+                              <Component id="tc_field" min="-2" pref="285" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
@@ -79,12 +79,12 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="username_field6" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Component id="id_field" min="-2" pref="200" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                                      <Component id="username_field3" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Component id="quant_field" min="-2" pref="200" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -128,21 +128,21 @@
                           <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel11" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="username_field1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="name_field" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="username_field4" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="tc_field" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel19" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="username_field6" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="id_field" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="username_field3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="quant_field" min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="jLabel18" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -171,7 +171,7 @@
             <Property name="text" type="java.lang.String" value="MUSTERI TC"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field1">
+        <Component class="javax.swing.JTextField" name="name_field">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f5" green="f5" red="f5" type="rgb"/>
@@ -225,7 +225,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fis_print_btnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field4">
+        <Component class="javax.swing.JTextField" name="tc_field">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f5" green="f5" red="f5" type="rgb"/>
@@ -273,7 +273,7 @@
             <Property name="text" type="java.lang.String" value="URUN ID"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="username_field3">
+        <Component class="javax.swing.JTextField" name="quant_field">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f5" green="f5" red="f5" type="rgb"/>
@@ -298,7 +298,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable2">
+            <Component class="javax.swing.JTable" name="BillingTable">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -341,12 +341,12 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable2MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BillingTableMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="username_field6">
+        <Component class="javax.swing.JTextField" name="id_field">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f5" green="f5" red="f5" type="rgb"/>

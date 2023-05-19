@@ -606,7 +606,7 @@ public class products extends javax.swing.JFrame {
         int selectedRowIndex = productsTable.getSelectedRow();
         ıd_field.setText((String) productsTable.getValueAt(selectedRowIndex, 0).toString());
         productname_field.setText((String) productsTable.getValueAt(selectedRowIndex, 1));
-        productquantity_field.setText((String) productsTable.getValueAt(selectedRowIndex, 2));
+        productquantity_field.setText((String) productsTable.getValueAt(selectedRowIndex, 2).toString());
         productprice_field.setText((String) productsTable.getValueAt(selectedRowIndex, 3));
 
         // TODO add your handling code here:

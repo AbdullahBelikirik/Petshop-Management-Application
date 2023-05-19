@@ -5,6 +5,11 @@ import sun.util.locale.LocaleUtils;
 import javax.swing.JPanel;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -14,6 +19,7 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,7 +39,13 @@ public class billing extends javax.swing.JFrame {
     public billing() {
         initComponents();
     }
+    Connection Con = null;
+    PreparedStatement Ps1, Ps2 = null;
+    ResultSet Rs = null;
+    Statement St = null;
 
+    int quantity;
+    int totalPrice = 0;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,18 +58,18 @@ public class billing extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        username_field1 = new javax.swing.JTextField();
+        name_field = new javax.swing.JTextField();
         fatura_kaydet_btn = new javax.swing.JButton();
         fis_print_btn = new javax.swing.JButton();
-        username_field4 = new javax.swing.JTextField();
+        tc_field = new javax.swing.JTextField();
         fise_ekle_btn = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        username_field3 = new javax.swing.JTextField();
+        quant_field = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        username_field6 = new javax.swing.JTextField();
+        BillingTable = new javax.swing.JTable();
+        id_field = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -86,7 +98,7 @@ public class billing extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
         jLabel14.setText("MUSTERI TC");
 
-        username_field1.setBackground(new java.awt.Color(245, 245, 245));
+        name_field.setBackground(new java.awt.Color(245, 245, 245));
 
         fatura_kaydet_btn.setBackground(new java.awt.Color(255, 204, 204));
         fatura_kaydet_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
@@ -110,7 +122,7 @@ public class billing extends javax.swing.JFrame {
             }
         });
 
-        username_field4.setBackground(new java.awt.Color(245, 245, 245));
+        tc_field.setBackground(new java.awt.Color(245, 245, 245));
 
         fise_ekle_btn.setBackground(new java.awt.Color(255, 204, 204));
         fise_ekle_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
@@ -129,14 +141,14 @@ public class billing extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
         jLabel19.setText("URUN ID");
 
-        username_field3.setBackground(new java.awt.Color(245, 245, 245));
+        quant_field.setBackground(new java.awt.Color(245, 245, 245));
 
         jLabel20.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
         jLabel20.setText("MÜSTERI FATURASI");
 
-        jTable2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTable2.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        BillingTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BillingTable.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
+        BillingTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -158,16 +170,16 @@ public class billing extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setRowHeight(30);
-        jTable2.setRowMargin(2);
-        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+        BillingTable.setRowHeight(30);
+        BillingTable.setRowMargin(2);
+        BillingTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable2MouseClicked(evt);
+                BillingTableMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(BillingTable);
 
-        username_field6.setBackground(new java.awt.Color(245, 245, 245));
+        id_field.setBackground(new java.awt.Color(245, 245, 245));
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
         jPanel2.setPreferredSize(new java.awt.Dimension(1204, 263));
@@ -329,8 +341,8 @@ public class billing extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(username_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tc_field, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel4Layout.createSequentialGroup()
                             .addContainerGap()
@@ -341,11 +353,11 @@ public class billing extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                     .addComponent(jLabel19)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(username_field6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(id_field, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                     .addComponent(jLabel18)
                                     .addGap(81, 81, 81)
-                                    .addComponent(username_field3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(quant_field, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -377,18 +389,18 @@ public class billing extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tc_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(83, 83, 83)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username_field6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(id_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(username_field3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(quant_field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(fise_ekle_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,16 +424,34 @@ public class billing extends javax.swing.JFrame {
     
     int row = 0;
     private void fise_ekle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fise_ekle_btnActionPerformed
-        // TODO add your handling code here:
-        if(username_field1.getText().isEmpty() ||username_field4.getText().isEmpty()  ||username_field6.getText().isEmpty() ||username_field3.getText().isEmpty()){
+        if(id_field.getText().isEmpty() || quant_field.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Eksik Bilgi");
         }
-        
-        //Buraya username_field6 kısmına girilen Urun IDsinin veritabanında bulunmadığı ile ilgili bir else if bloğu yazılabilir.
         else{
-            jTable2.setValueAt("AD",row,0);
-            jTable2.setValueAt(username_field3.getText(),row,1);
-            jTable2.setValueAt( "FIYAT" ,row,2);
-            row++;
+            
+            try {
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Ps1 = (PreparedStatement) Con.prepareStatement("select * from Products where `Urun ID` = ?");
+                Ps1.setString(1, id_field.getText());
+                Rs = Ps1.executeQuery();
+                if(Rs.next()){
+                    if(Integer.valueOf(quant_field.getText())>Integer.valueOf(Rs.getString("Urun Miktari"))){
+                        JOptionPane.showMessageDialog(this, "Stoktaki miktardan fazla miktar girildi");
+                    }
+                    else{
+                        BillingTable.setValueAt(Rs.getString("Urun Turu"),row,0);
+                        BillingTable.setValueAt(quant_field.getText(),row,1);
+                        BillingTable.setValueAt( Rs.getString("Urun Fiyati"),row,2);
+                        row++;
+                    }
+                    totalPrice += Integer.valueOf(quant_field.getText())* Integer.valueOf(Rs.getString("Urun Fiyati"));
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Yanlıs Urun ID'si");
+                }                
+            } catch (SQLException ex) {
+                Logger.getLogger(billing.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_fise_ekle_btnActionPerformed
 
@@ -449,7 +479,7 @@ public class billing extends javax.swing.JFrame {
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
             // Font dosyasını yükleyin
-            PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\fone\\Desktop\\Yeni klasör (2)\\calibri-regular.ttf"));
+            PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\Abdullah\\Desktop\\Yeni klasör"));
 
             // Metni belgeye ekle
             contentStream.setFont(font, 24);
@@ -470,11 +500,11 @@ public class billing extends javax.swing.JFrame {
             for(int i = 0;i<row;i++){
                 
                 contentStream.newLineAtOffset(-400, -20);
-                contentStream.showText(jTable2.getValueAt(i, 0).toString());
+                contentStream.showText(BillingTable.getValueAt(i, 0).toString());
                 contentStream.newLineAtOffset(200, 0);
-                contentStream.showText(jTable2.getValueAt(i, 1).toString());
+                contentStream.showText(BillingTable.getValueAt(i, 1).toString());
                 contentStream.newLineAtOffset(200, 0);
-                contentStream.showText(jTable2.getValueAt(i, 2).toString());
+                contentStream.showText(BillingTable.getValueAt(i, 2).toString());
                 
             }
             contentStream.endText();
@@ -492,10 +522,34 @@ public class billing extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        totalPrice = 0;
+        row = 0;
     }//GEN-LAST:event_fis_print_btnActionPerformed
 
     private void fatura_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fatura_kaydet_btnActionPerformed
-        // TODO add your handling code here:
+        for(int i = 0; i<row; i++){
+            try {
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Ps1 = (PreparedStatement) Con.prepareStatement("Update Products set `Urun Miktari` = ? where `Urun Turu` = ?");
+                Ps2 = Con.prepareStatement("Select * from Products where `Urun Turu` = ?");
+                
+                Ps2.setString(1, (String) BillingTable.getValueAt(i, 0));
+                Rs = Ps2.executeQuery();
+                Rs.next();
+                quantity = Integer.valueOf(Rs.getString("Urun Miktari")) - Integer.valueOf((String) BillingTable.getValueAt(i, 1));                
+                Ps1.setInt(1, quantity);               
+                Ps1.setString(2, (String) BillingTable.getValueAt(i, 0));
+                Ps1.executeUpdate();                               
+            } catch (SQLException ex) {
+                Logger.getLogger(billing.class.getName()).log(Level.SEVERE, null, ex);
+            }               
+        }
+        for(int i = 0; i<row; i++){
+            for(int j = 0; j<3; j++){
+                BillingTable.setValueAt(null, i, j);
+            }
+        }        
+        JOptionPane.showMessageDialog(this,"Faturanız Kaydedildi");
     }//GEN-LAST:event_fatura_kaydet_btnActionPerformed
 
     private void pets_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pets_btn
@@ -558,9 +612,9 @@ public class billing extends javax.swing.JFrame {
 	    });
     }//GEN-LAST:event_logout_btn
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void BillingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillingTableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable2MouseClicked
+    }//GEN-LAST:event_BillingTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -596,9 +650,11 @@ public class billing extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable BillingTable;
     private javax.swing.JButton fatura_kaydet_btn;
     private javax.swing.JButton fis_print_btn;
     private javax.swing.JButton fise_ekle_btn;
+    private javax.swing.JTextField id_field;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -621,10 +677,8 @@ public class billing extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField username_field1;
-    private javax.swing.JTextField username_field3;
-    private javax.swing.JTextField username_field4;
-    private javax.swing.JTextField username_field6;
+    private javax.swing.JTextField name_field;
+    private javax.swing.JTextField quant_field;
+    private javax.swing.JTextField tc_field;
     // End of variables declaration//GEN-END:variables
 }
