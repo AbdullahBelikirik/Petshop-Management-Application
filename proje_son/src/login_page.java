@@ -223,7 +223,7 @@ public class login_page extends javax.swing.JFrame {
             Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Ps = (PreparedStatement) Con.prepareStatement("select * from Users where UserName = ? and UserPassword = ?",ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            Ps = (PreparedStatement) Con.prepareStatement("select * from Users where `Kullanici Adi` = ? and `Kullanici Sifresi` = ?",ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             Ps.setString(1, username);
             Ps.setString(2, password);
         } catch (SQLException ex) {

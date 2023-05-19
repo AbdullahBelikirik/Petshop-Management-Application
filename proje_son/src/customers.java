@@ -402,7 +402,7 @@ public class customers extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("delete from Customers where name = ?");
+            Ps = (PreparedStatement) Con.prepareStatement("delete from Customers where `Musteri Adi` = ?");
 
             int selectedRowIndex = customerTable.getSelectedRow();
             if (selectedRowIndex != -1) {
@@ -434,7 +434,7 @@ public class customers extends javax.swing.JFrame {
         } else {
             try {
                 Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-                Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(name, address, phoneNumber) VALUES(?,?,?)");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(`Musteri Adi`, `Adres`, `Telefon Numarasi`) VALUES(?,?,?)");
                 Ps.setString(1, customername_field.getText());
                 Ps.setString(2, address_field.getText());
                 Ps.setString(3, phoneNumber_field.getText());
@@ -459,7 +459,7 @@ public class customers extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("Update Customers Set name = ? , address = ? , phoneNumber = ? where name=?");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Customers Set `Musteri Adi` = ? , `Adres` = ? , `Telefon Numarasi` = ? where `Musteri Adi`=?");
 
             int selectedRowIndex = customerTable.getSelectedRow();
             if (selectedRowIndex != -1) {

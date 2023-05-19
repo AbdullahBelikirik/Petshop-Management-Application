@@ -453,7 +453,7 @@ public class users extends javax.swing.JFrame {
         } else {
             try {
                 Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-                Ps = (PreparedStatement) Con.prepareStatement("insert into Users(UserName, UserPassword) VALUES(?,?)");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Users(`Kullanici Adi`,`Kullanici Sifresi`) VALUES(?,?)");
                 Ps.setString(1, username_field.getText());
                 Ps.setString(2, password_field.getText());
                 Ps.executeUpdate();
@@ -475,7 +475,7 @@ public class users extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("Update Users Set UserName = ? , UserPassword = ? where UserName = ?");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Users Set `Kullanici Adi` = ? , `Kullanici Sifresi` = ? where `Kullanici Adi` = ?");
 
             int selectedRowIndex = userTable.getSelectedRow();
             if (selectedRowIndex != -1) {

@@ -409,7 +409,7 @@ public class products extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");            Ps = (PreparedStatement) Con.prepareStatement("delete from Users where UserName = ?");
-            Ps = (PreparedStatement) Con.prepareStatement("delete from Products where id = ?");
+            Ps = (PreparedStatement) Con.prepareStatement("delete from Products where `Urun ID` = ?");
             
             
             int selectedRowIndex = productsTable.getSelectedRow();
@@ -441,7 +441,7 @@ public class products extends javax.swing.JFrame {
         } else {
             try {
                 Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-                Ps = (PreparedStatement) Con.prepareStatement("insert into Products(id, productsname, productquantity, productprice) VALUES(?,?,?,?)");
+                Ps = (PreparedStatement) Con.prepareStatement("insert into Products(`Urun ID`, `Urun Turu`, `Urun Miktari`, `Urun Fiyati`) VALUES(?,?,?,?)");
                 Ps.setString(1, ıd_field.getText());
                 Ps.setString(2, productname_field.getText());
                 Ps.setString(3, productquantity_field.getText());
@@ -466,7 +466,7 @@ public class products extends javax.swing.JFrame {
         }
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("Update Products Set id = ? , productsname = ? , productquantity = ? , productprice = ? where id=?");
+            Ps = (PreparedStatement) Con.prepareStatement("Update Products Set `Urun ID` = ? , `Urun Turu` = ? , `Urun Miktari` = ? , `Urun Fiyati` = ? where `Urun ID` =?");
 
             int selectedRowIndex = productsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
