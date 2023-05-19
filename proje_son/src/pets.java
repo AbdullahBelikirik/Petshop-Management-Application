@@ -603,10 +603,10 @@ public class pets extends javax.swing.JFrame {
                     Ps.setString(2, species_field.getText());
                     Ps.setString(3, oldPetName);
                     Ps.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Hayvan Shiplendirildi");
+                    JOptionPane.showMessageDialog(this, "Hayvan Sahiplendirildi");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Shiplendireceğiniz hayvanı seçmeniz gerekmektedir");
+                JOptionPane.showMessageDialog(this, "Sahiplendireceğiniz hayvanı seçmeniz gerekmektedir");
             }
             Ps.close();
             Con.close();
