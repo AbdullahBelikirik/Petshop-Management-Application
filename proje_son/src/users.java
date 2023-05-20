@@ -26,6 +26,11 @@ public class users extends javax.swing.JFrame {
     PreparedStatement Ps = null;
     ResultSet Rs = null;
     Statement St = null;
+    int columnCount;
+    String[] columnNames;
+    Object[] row;
+    int selectedRowIndex;
+    String oldUserName;
 
     /**
      * Creates new form users
@@ -65,12 +70,12 @@ public class users extends javax.swing.JFrame {
         jLabel50 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        hayvan_btn4 = new javax.swing.JButton();
+        kullanici_btn4 = new javax.swing.JButton();
+        musteri_btn4 = new javax.swing.JButton();
+        fatura_btn4 = new javax.swing.JButton();
+        urun_btn4 = new javax.swing.JButton();
+        cikis_btn4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,11 +92,6 @@ public class users extends javax.swing.JFrame {
         username_field.setBackground(new java.awt.Color(245, 245, 245));
 
         password_field.setBackground(new java.awt.Color(245, 245, 245));
-        password_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                password_fieldActionPerformed(evt);
-            }
-        });
 
         kullanici_sil_btn.setBackground(new java.awt.Color(255, 204, 204));
         kullanici_sil_btn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 20)); // NOI18N
@@ -177,49 +177,44 @@ public class users extends javax.swing.JFrame {
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oo.png"))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(255, 204, 204));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        hayvan_btn4.setBackground(new java.awt.Color(255, 204, 204));
+        hayvan_btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
+        hayvan_btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pets_btn(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 204, 204));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                users_btn(evt);
-            }
-        });
+        kullanici_btn4.setBackground(new java.awt.Color(255, 204, 204));
+        kullanici_btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
 
-        jButton6.setBackground(new java.awt.Color(255, 204, 204));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        musteri_btn4.setBackground(new java.awt.Color(255, 204, 204));
+        musteri_btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
+        musteri_btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customers_btn(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 204, 204));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        fatura_btn4.setBackground(new java.awt.Color(255, 204, 204));
+        fatura_btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
+        fatura_btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 billing_btn(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(255, 204, 204));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        urun_btn4.setBackground(new java.awt.Color(255, 204, 204));
+        urun_btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
+        urun_btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 products_btn(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(255, 204, 204));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        cikis_btn4.setBackground(new java.awt.Color(255, 204, 204));
+        cikis_btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
+        cikis_btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logout_btn(evt);
             }
@@ -236,35 +231,35 @@ public class users extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hayvan_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel20)))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(kullanici_btn4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(musteri_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel48)))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fatura_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel52)))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(urun_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cikis_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -273,12 +268,12 @@ public class users extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hayvan_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kullanici_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(musteri_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fatura_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(urun_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cikis_btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,8 +382,8 @@ public class users extends javax.swing.JFrame {
         Rs = St.executeQuery("Select `Kullanici Adi` from Users");
 
         ResultSetMetaData metaData = Rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-        String[] columnNames = new String[columnCount];
+        columnCount = metaData.getColumnCount();
+        columnNames = new String[columnCount];
         for (int i = 1; i <= columnCount; i++) {
             columnNames[i - 1] = metaData.getColumnName(i);
         }
@@ -398,7 +393,7 @@ public class users extends javax.swing.JFrame {
 
         // ResultSet nesnesinden verileri tabloya ekle
         while (Rs.next()) {
-            Object[] row = new Object[columnCount];
+            row = new Object[columnCount];
             for (int i = 1; i <= columnCount; i++) {
                 row[i - 1] = Rs.getObject(i);
             }
@@ -425,7 +420,7 @@ public class users extends javax.swing.JFrame {
         try {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");            Ps = (PreparedStatement) Con.prepareStatement("delete from Users where `Kullanici Adi` = ?");
 
-            int selectedRowIndex = userTable.getSelectedRow();
+            selectedRowIndex = userTable.getSelectedRow();
             if (selectedRowIndex != -1) {
                 String userName = (String) userTable.getValueAt(selectedRowIndex, 0);
                 Ps.setString(1, userName);
@@ -477,10 +472,10 @@ public class users extends javax.swing.JFrame {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("Update Users Set `Kullanici Adi` = ? , `Kullanici Sifresi` = ? where `Kullanici Adi` = ?");
 
-            int selectedRowIndex = userTable.getSelectedRow();
+            selectedRowIndex = userTable.getSelectedRow();
             if (selectedRowIndex != -1) {
 
-                String oldUserName = (String) userTable.getValueAt(selectedRowIndex, 0);
+                oldUserName = (String) userTable.getValueAt(selectedRowIndex, 0);
                 if (username_field.getText().isEmpty() || password_field.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Eksik Bilgi");
                 } else {
@@ -513,10 +508,6 @@ public class users extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_pets_btn
-
-    private void users_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_users_btn
-        // TODO add your handling code here:
-    }//GEN-LAST:event_users_btn
 
     private void customers_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customers_btn
         // TODO add your handling code here:
@@ -558,14 +549,10 @@ public class users extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_logout_btn
 
-    private void password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_password_fieldActionPerformed
-
     private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked
         int selectedRowIndex = userTable.getSelectedRow();
         username_field.setText((String) userTable.getValueAt(selectedRowIndex, 0));
-        password_field.setText((String) userTable.getValueAt(selectedRowIndex, 1));
+       
     }//GEN-LAST:event_userTableMouseClicked
 
     /**
@@ -607,12 +594,9 @@ public class users extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton cikis_btn4;
+    private javax.swing.JButton fatura_btn4;
+    private javax.swing.JButton hayvan_btn4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -627,10 +611,13 @@ public class users extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton kullanici_btn4;
     private javax.swing.JButton kullanici_duzenle_btn;
     private javax.swing.JButton kullanici_kaydet_btn;
     private javax.swing.JButton kullanici_sil_btn;
+    private javax.swing.JButton musteri_btn4;
     private javax.swing.JTextField password_field;
+    private javax.swing.JButton urun_btn4;
     private javax.swing.JTable userTable;
     private javax.swing.JTextField username_field;
     // End of variables declaration//GEN-END:variables

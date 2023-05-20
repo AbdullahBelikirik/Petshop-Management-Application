@@ -26,6 +26,11 @@ public class customers extends javax.swing.JFrame {
     PreparedStatement Ps = null;
     ResultSet Rs = null;
     Statement St = null;
+    int selectedRowIndex;
+    String customerName;
+    String oldCustomerName;
+    Object[] row ;
+
 
     /**
      * Creates new form customers
@@ -68,12 +73,12 @@ public class customers extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        hayvan_btn5 = new javax.swing.JButton();
+        kullanici_btn5 = new javax.swing.JButton();
+        musteri_btn5 = new javax.swing.JButton();
+        fatura_btn5 = new javax.swing.JButton();
+        urun_btn5 = new javax.swing.JButton();
+        cikis_btn5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -97,7 +102,7 @@ public class customers extends javax.swing.JFrame {
         jLabel12.setText("ADRES");
 
         jLabel13.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
-        jLabel13.setText("TELEFON");
+        jLabel13.setText("TC");
 
         jLabel14.setFont(new java.awt.Font("Imprint MT Shadow", 1, 20)); // NOI18N
         jLabel14.setText("AD");
@@ -151,7 +156,7 @@ public class customers extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Müsteri Adı", "Adres", "Telefon Numarası"
+                "Müsteri Adı", "Adres", "TC"
             }
         ));
         customerTable.setRowHeight(30);
@@ -189,49 +194,44 @@ public class customers extends javax.swing.JFrame {
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oo.png"))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(255, 204, 204));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        hayvan_btn5.setBackground(new java.awt.Color(255, 204, 204));
+        hayvan_btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
+        hayvan_btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pets_btn(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 204, 204));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        kullanici_btn5.setBackground(new java.awt.Color(255, 204, 204));
+        kullanici_btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
+        kullanici_btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 users_btn(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 204, 204));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customers_btn(evt);
-            }
-        });
+        musteri_btn5.setBackground(new java.awt.Color(255, 204, 204));
+        musteri_btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
 
-        jButton7.setBackground(new java.awt.Color(255, 204, 204));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        fatura_btn5.setBackground(new java.awt.Color(255, 204, 204));
+        fatura_btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
+        fatura_btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 billing_btn(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(255, 204, 204));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        urun_btn5.setBackground(new java.awt.Color(255, 204, 204));
+        urun_btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
+        urun_btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 products_btn(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(255, 204, 204));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        cikis_btn5.setBackground(new java.awt.Color(255, 204, 204));
+        cikis_btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
+        cikis_btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logout_btn(evt);
             }
@@ -245,31 +245,31 @@ public class customers extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hayvan_btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(kullanici_btn5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(musteri_btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel8)))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fatura_btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(urun_btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cikis_btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,13 +284,13 @@ public class customers extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hayvan_btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(kullanici_btn5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(musteri_btn5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fatura_btn5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(urun_btn5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cikis_btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,7 +300,7 @@ public class customers extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -404,9 +404,9 @@ public class customers extends javax.swing.JFrame {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("delete from Customers where `Musteri Adi` = ?");
 
-            int selectedRowIndex = customerTable.getSelectedRow();
+            selectedRowIndex = customerTable.getSelectedRow();
             if (selectedRowIndex != -1) {
-                String customerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
+                customerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
                 Ps.setString(1, customerName);
                 Ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Müşteri Silindi");
@@ -461,10 +461,10 @@ public class customers extends javax.swing.JFrame {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("Update Customers Set `Musteri Adi` = ? , `Adres` = ? , `Telefon Numarasi` = ? where `Musteri Adi`=?");
 
-            int selectedRowIndex = customerTable.getSelectedRow();
+            selectedRowIndex = customerTable.getSelectedRow();
             if (selectedRowIndex != -1) {
 
-                String oldCustomerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
+                oldCustomerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
                 if (customername_field.getText().isEmpty() || address_field.getText().isEmpty() || phoneNumber_field.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Eksik Bilgi");
                 } else {
@@ -537,7 +537,7 @@ public class customers extends javax.swing.JFrame {
 
         // ResultSet nesnesinden verileri tabloya ekle
         while (Rs.next()) {
-            Object[] row = new Object[columnCount];
+            row = new Object[columnCount];
             for (int i = 1; i <= columnCount; i++) {
                 row[i - 1] = Rs.getObject(i);
             }
@@ -553,102 +553,6 @@ public class customers extends javax.swing.JFrame {
         St.close();
         Con.close();
     }
-/*
-    private void muste_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, ex);
-        }
-        try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("delete from Customers where name = ?");
-
-            int selectedRowIndex = customerTable.getSelectedRow();
-            if (selectedRowIndex != -1) {
-                String customerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
-                Ps.setString(1, customerName);
-                Ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Müşteri Silindi");
-            } else {
-                JOptionPane.showMessageDialog(this, "Sileceğiniz müşteriyi seçmeniz gerekmektedir");
-            }
-            Ps.close();
-            Con.close();
-            displayCustomers();
-        } catch (SQLException ex) {
-            Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void customer_save_btnActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, ex);
-        }
-        if (customername_field.getText().isEmpty() || address_field.getText().isEmpty() || phoneNumber_field.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Eksik Bilgi");
-        } else {
-            try {
-                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-                Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(name, address, phoneNumber) VALUES(?,?,?)");
-                Ps.setString(1, customername_field.getText());
-                Ps.setString(2, address_field.getText());
-                Ps.setString(2, phoneNumber_field.getText());
-                Ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Müşteri Eklendi");
-                Con.close();
-                displayCustomers();
-            } catch (SQLException ex) {
-                Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, ex);
-            }
-        }
-    }
-
-    private void customer_update_btnActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-            Ps = (PreparedStatement) Con.prepareStatement("Update Costumers Set name = ? , address = ? where phoneNumber = ?");
-
-            int selectedRowIndex = customerTable.getSelectedRow();
-            if (selectedRowIndex != -1) {
-
-                String oldCustomerName = (String) customerTable.getValueAt(selectedRowIndex, 0);
-                if (customername_field.getText().isEmpty() || address_field.getText().isEmpty() || phoneNumber_field.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Eksik Bilgi");
-                } else {
-                    Ps.setString(1, customername_field.getText());
-                    Ps.setString(2, address_field.getText());
-                    Ps.setString(2, phoneNumber_field.getText());
-
-                    Ps.setString(3, oldCustomerName);
-                    Ps.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Müşteri Güncellendi");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Güncelleyeceğiniz müşteriyi seçmeniz gerekmektedir");
-            }
-            Ps.close();
-            Con.close();
-            displayCustomers();
-        } catch (SQLException ex) {
-            Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex);
-        }
-    }
-*/
-    //burayaaaa
-
-    private void customers_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customers_btn
-        // TODO add your handling code here:
-    }//GEN-LAST:event_customers_btn
 
     private void billing_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billing_btn
         // TODO add your handling code here:
@@ -726,14 +630,11 @@ public class customers extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField address_field;
+    private javax.swing.JButton cikis_btn5;
     private javax.swing.JTable customerTable;
     private javax.swing.JTextField customername_field;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton fatura_btn5;
+    private javax.swing.JButton hayvan_btn5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -750,10 +651,13 @@ public class customers extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton kullanici_btn5;
     private javax.swing.JButton muster_duzenle_btn;
+    private javax.swing.JButton musteri_btn5;
     private javax.swing.JButton musteri_kaydet_btn;
     private javax.swing.JButton musteri_sil_btn;
     private javax.swing.JTextField phoneNumber_field;
+    private javax.swing.JButton urun_btn5;
     // End of variables declaration//GEN-END:variables
 
    

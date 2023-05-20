@@ -1,7 +1,4 @@
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -111,14 +108,14 @@ public class splash_screen extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-             splash_screen wel = new splash_screen();
+        splash_screen wel = new splash_screen();
         wel.setVisible(true);
         
         
         login_page login = new login_page();
         try {
             for(int i=0;i<100;i++){
-                Thread.sleep(50);
+                Thread.sleep(20);
                 wel.splash_screen_progBar.setValue(i);
             }
             

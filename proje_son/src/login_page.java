@@ -18,7 +18,10 @@ import javax.swing.JOptionPane;
  * @author ZEHRABENGÜEMÜL
  */
 public class login_page extends javax.swing.JFrame {
-
+    String username, password, message;
+    
+    
+    
     public login_page() {
         initComponents();
     }
@@ -202,12 +205,11 @@ public class login_page extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
-        // TODO add your handling code here:
+      
         // login ekranındaki butona event ekledim. basınca giriş yapılacağına dair kodları buraya yazıyoruz.
 
-        String username = username_field.getText();
-        String password = new String( password_field.getPassword());
-        String message;
+        username = username_field.getText();
+        password = new String( password_field.getPassword());
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -260,7 +262,7 @@ public class login_page extends javax.swing.JFrame {
     }//GEN-LAST:event_login_btnActionPerformed
 
     private void close_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_btnActionPerformed
-        // TODO add your handling code here:
+        
         dispose();
         System.exit(0);
     }//GEN-LAST:event_close_btnActionPerformed

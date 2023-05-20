@@ -26,9 +26,14 @@ public class pets extends javax.swing.JFrame {
     PreparedStatement Ps = null;
     ResultSet Rs = null;
     Statement St = null;
-    /**
-     * Creates new form pets
-     */
+    
+    int columnCount;
+    String[] columnNames;
+    Object[] row;
+    int selectedRowIndex;
+    String petName;
+    String oldPetName;
+    
     public pets() throws SQLException {
         initComponents();
         displayPets();
@@ -61,12 +66,12 @@ public class pets extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        hayvan_btn2 = new javax.swing.JButton();
+        kullanici_btn2 = new javax.swing.JButton();
+        musteri_btn2 = new javax.swing.JButton();
+        fatura_btn2 = new javax.swing.JButton();
+        urun_btn2 = new javax.swing.JButton();
+        cikis_btn2 = new javax.swing.JButton();
         species_field = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         hayvan_sahiplendir_btn = new javax.swing.JButton();
@@ -141,11 +146,6 @@ public class pets extends javax.swing.JFrame {
         jLabel15.setText("HAYVAN LISTESI");
 
         ıd_field.setBackground(new java.awt.Color(245, 245, 245));
-        ıd_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ıd_fieldActionPerformed(evt);
-            }
-        });
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
         jPanel2.setPreferredSize(new java.awt.Dimension(1204, 163));
@@ -170,49 +170,44 @@ public class pets extends javax.swing.JFrame {
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oo.png"))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(255, 204, 204));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pets_btn(evt);
-            }
-        });
+        hayvan_btn2.setBackground(new java.awt.Color(255, 204, 204));
+        hayvan_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
 
-        jButton5.setBackground(new java.awt.Color(255, 204, 204));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        kullanici_btn2.setBackground(new java.awt.Color(255, 204, 204));
+        kullanici_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
+        kullanici_btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 users_btn(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 204, 204));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        musteri_btn2.setBackground(new java.awt.Color(255, 204, 204));
+        musteri_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
+        musteri_btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customers_btn(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 204, 204));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        fatura_btn2.setBackground(new java.awt.Color(255, 204, 204));
+        fatura_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
+        fatura_btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 billing_btn(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(255, 204, 204));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        urun_btn2.setBackground(new java.awt.Color(255, 204, 204));
+        urun_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
+        urun_btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 products_btn(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(255, 204, 204));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        cikis_btn2.setBackground(new java.awt.Color(255, 204, 204));
+        cikis_btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
+        cikis_btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logout_btn(evt);
             }
@@ -225,35 +220,35 @@ public class pets extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hayvan_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel3)))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(kullanici_btn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(musteri_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel8)))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fatura_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel14)))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(urun_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cikis_btn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -266,12 +261,12 @@ public class pets extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hayvan_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kullanici_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(musteri_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fatura_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(urun_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cikis_btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,33 +392,30 @@ public class pets extends javax.swing.JFrame {
         Rs = St.executeQuery("Select * from Pets");
 
         ResultSetMetaData metaData = Rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-        String[] columnNames = new String[columnCount];
+        columnCount = metaData.getColumnCount();
+        columnNames = new String[columnCount];
         for (int i = 1; i <= columnCount; i++) {
             columnNames[i - 1] = metaData.getColumnName(i);
         }
 
-        // DefaultTableModel nesnesini oluştur ve sütun bilgilerini ekle
+      
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        // ResultSet nesnesinden verileri tabloya ekle
         while (Rs.next()) {
-            Object[] row = new Object[columnCount];
+            row = new Object[columnCount];
             for (int i = 1; i <= columnCount; i++) {
                 row[i - 1] = Rs.getObject(i);
             }
             tableModel.addRow(row);
         }
-
-        // JTable nesnesini oluştur ve verileri ekleyerek göster
+        
         petsTable.setModel(tableModel);
-        //JOptionPane.showMessageDialog(null, new JScrollPane(table), "Table", JOptionPane.PLAIN_MESSAGE);
-
-        // Kaynakları serbest bırak
+    
         Rs.close();
         St.close();
         Con.close();
     }
+    
     private void hayvan_sil_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_sil_btnActionPerformed
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -434,9 +426,9 @@ public class pets extends javax.swing.JFrame {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("delete from Pets where `Hayvan ID` = ?");
 
-            int selectedRowIndex = petsTable.getSelectedRow();
+            selectedRowIndex = petsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
-                String petName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
+                petName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
                 Ps.setString(1, petName);
                 Ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Hayvan Silindi");
@@ -449,7 +441,7 @@ public class pets extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_hayvan_sil_btnActionPerformed
 
     private void hayvan_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_kaydet_btnActionPerformed
@@ -475,7 +467,7 @@ public class pets extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, ex);
             }
         }
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_hayvan_kaydet_btnActionPerformed
 
     private void hayvan_duzenle_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hayvan_duzenle_btnActionPerformed
@@ -488,10 +480,10 @@ public class pets extends javax.swing.JFrame {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("Update Pets Set `Hayvan ID` = ? , `Hayvan Turu` = ? where `Hayvan ID` = ?");
 
-            int selectedRowIndex = petsTable.getSelectedRow();
+            selectedRowIndex = petsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
 
-                String oldPetName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
+                oldPetName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
                 if (ıd_field.getText().isEmpty() || species_field.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Eksik Bilgi");
                 } else {
@@ -511,15 +503,11 @@ public class pets extends javax.swing.JFrame {
             Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex);
         }
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_hayvan_duzenle_btnActionPerformed
 
-    private void pets_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pets_btn
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pets_btn
-
     private void users_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_users_btn
-        // TODO add your handling code here:
+        
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
                 try {
@@ -531,7 +519,7 @@ public class pets extends javax.swing.JFrame {
     }//GEN-LAST:event_users_btn
 
     private void customers_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customers_btn
-        // TODO add your handling code here:
+       
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
                 try {
@@ -543,7 +531,7 @@ public class pets extends javax.swing.JFrame {
     }//GEN-LAST:event_customers_btn
 
     private void billing_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billing_btn
-        // TODO add your handling code here:
+        
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
 		new billing().setVisible(true);
@@ -551,7 +539,7 @@ public class pets extends javax.swing.JFrame {
     }//GEN-LAST:event_billing_btn
 
     private void products_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_products_btn
-        // TODO add your handling code here:
+      
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
                 try {
@@ -563,19 +551,15 @@ public class pets extends javax.swing.JFrame {
     }//GEN-LAST:event_products_btn
 
     private void logout_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_btn
-        // TODO add your handling code here:
+       
 	    dispose();
 	    java.awt.EventQueue.invokeLater(() -> {
 		new login_page().setVisible(true);
 	    });
     }//GEN-LAST:event_logout_btn
 
-    private void ıd_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ıd_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ıd_fieldActionPerformed
-
     private void petsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_petsTableMouseClicked
-        int selectedRowIndex = petsTable.getSelectedRow();
+        selectedRowIndex = petsTable.getSelectedRow();
         ıd_field.setText((String) petsTable.getValueAt(selectedRowIndex, 0).toString());
         species_field.setText((String) petsTable.getValueAt(selectedRowIndex, 1));
         // TODO add your handling code here:
@@ -591,10 +575,10 @@ public class pets extends javax.swing.JFrame {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("Update Pets Set `Hayvan ID` = ? , `Hayvan Turu` = ? where `Hayvan ID` = ?");
 
-            int selectedRowIndex = petsTable.getSelectedRow();
+             selectedRowIndex = petsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
 
-                String oldPetName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
+                oldPetName = (String) petsTable.getValueAt(selectedRowIndex, 0).toString();
                 if (ıd_field.getText().isEmpty() || species_field.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Eksik Bilgi");
                 } else {
@@ -656,16 +640,13 @@ public class pets extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cikis_btn2;
+    private javax.swing.JButton fatura_btn2;
+    private javax.swing.JButton hayvan_btn2;
     private javax.swing.JButton hayvan_duzenle_btn;
     private javax.swing.JButton hayvan_kaydet_btn;
     private javax.swing.JButton hayvan_sahiplendir_btn;
     private javax.swing.JButton hayvan_sil_btn;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -680,8 +661,11 @@ public class pets extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton kullanici_btn2;
+    private javax.swing.JButton musteri_btn2;
     private javax.swing.JTable petsTable;
     private javax.swing.JTextField species_field;
+    private javax.swing.JButton urun_btn2;
     private javax.swing.JTextField ıd_field;
     // End of variables declaration//GEN-END:variables
 }
