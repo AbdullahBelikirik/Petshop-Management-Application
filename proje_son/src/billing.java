@@ -13,6 +13,12 @@ import java.sql.Statement;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
@@ -538,6 +544,10 @@ public class billing extends javax.swing.JFrame {
             contentStream.showText("Toplam Tutar:₺"+String.valueOf(toplamFiyat));
 
             contentStream.endText();
+            PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
+            contentStream.drawImage(image, 500, 750, 70, 70);
+            PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\logo.png", document);
+            contentStream.drawImage(image2, 430, 750, 70, 70);
 
             // İçerik akışını kapat
             contentStream.close();
