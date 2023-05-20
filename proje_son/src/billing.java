@@ -73,7 +73,7 @@ public class billing extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         quant_field = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
+        musFaturaLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         BillingTable = new javax.swing.JTable();
         id_field = new javax.swing.JTextField();
@@ -85,12 +85,12 @@ public class billing extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        hayvan_btn = new javax.swing.JButton();
+        kullanici_btn = new javax.swing.JButton();
+        musteri_btn = new javax.swing.JButton();
+        faturabtn = new javax.swing.JButton();
+        urun_btn = new javax.swing.JButton();
+        cikis_btn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -145,8 +145,8 @@ public class billing extends javax.swing.JFrame {
 
         quant_field.setBackground(new java.awt.Color(245, 245, 245));
 
-        jLabel20.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
-        jLabel20.setText("MÜSTERI FATURASI");
+        musFaturaLabel.setFont(new java.awt.Font("Imprint MT Shadow", 1, 25)); // NOI18N
+        musFaturaLabel.setText("MÜSTERI FATURASI");
 
         BillingTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BillingTable.setFont(new java.awt.Font("UD Digi Kyokasho NP-R", 0, 25)); // NOI18N
@@ -174,11 +174,6 @@ public class billing extends javax.swing.JFrame {
         });
         BillingTable.setRowHeight(30);
         BillingTable.setRowMargin(2);
-        BillingTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BillingTableMouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(BillingTable);
 
         id_field.setBackground(new java.awt.Color(245, 245, 245));
@@ -206,52 +201,47 @@ public class billing extends javax.swing.JFrame {
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oo.png"))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(255, 204, 204));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
-        jButton4.setPreferredSize(new java.awt.Dimension(130, 80));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        hayvan_btn.setBackground(new java.awt.Color(255, 204, 204));
+        hayvan_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
+        hayvan_btn.setPreferredSize(new java.awt.Dimension(130, 80));
+        hayvan_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pets_btn(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 204, 204));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
-        jButton5.setPreferredSize(new java.awt.Dimension(130, 80));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        kullanici_btn.setBackground(new java.awt.Color(255, 204, 204));
+        kullanici_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
+        kullanici_btn.setPreferredSize(new java.awt.Dimension(130, 80));
+        kullanici_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 users_btn(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 204, 204));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
-        jButton6.setText(" ");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        musteri_btn.setBackground(new java.awt.Color(255, 204, 204));
+        musteri_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
+        musteri_btn.setText(" ");
+        musteri_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customers_btn(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 204, 204));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billing_btn(evt);
-            }
-        });
+        faturabtn.setBackground(new java.awt.Color(255, 204, 204));
+        faturabtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
 
-        jButton8.setBackground(new java.awt.Color(255, 204, 204));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        urun_btn.setBackground(new java.awt.Color(255, 204, 204));
+        urun_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
+        urun_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 products_btn(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(255, 204, 204));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        cikis_btn.setBackground(new java.awt.Color(255, 204, 204));
+        cikis_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
+        cikis_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logout_btn(evt);
             }
@@ -265,20 +255,20 @@ public class billing extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hayvan_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(kullanici_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(musteri_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel8)))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faturabtn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel22)))
@@ -288,11 +278,11 @@ public class billing extends javax.swing.JFrame {
                         .addComponent(jLabel9))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(urun_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cikis_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -304,12 +294,12 @@ public class billing extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hayvan_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kullanici_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(musteri_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faturabtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(urun_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cikis_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -356,7 +346,7 @@ public class billing extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
+                                .addComponent(musFaturaLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36))
@@ -369,7 +359,7 @@ public class billing extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(musFaturaLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,30 +441,21 @@ public class billing extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-            
-            
-            
+          
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.20yy    HH:mm");
             String formattedDateTime = now.format(formatter);
             System.out.println(formattedDateTime);
             
-            
-            
-            
             PDDocument document = new PDDocument();
-
-            
+   
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
-            
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            
-            PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\fone\\Desktop\\Font\\calibri-regular.ttf"));
+            PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\fatura\\calibri-regular.ttf"));
 
-            
             contentStream.setFont(font, 10);
             contentStream.beginText();
             contentStream.newLineAtOffset(40, 800);
@@ -507,8 +488,7 @@ public class billing extends javax.swing.JFrame {
                 Logger.getLogger(billing.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-            
-            
+                    
             contentStream.showText("Musteri Adi: "+musteriAdi);
             contentStream.newLineAtOffset(0, -20);
             contentStream.showText("Musteri Adres: "+musteriAdres);
@@ -544,9 +524,9 @@ public class billing extends javax.swing.JFrame {
             contentStream.showText("Toplam Tutar:₺"+String.valueOf(toplamFiyat));
 
             contentStream.endText();
-            PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
+            PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\Sistem Analizi ve Tasarımı\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
             contentStream.drawImage(image, 500, 750, 70, 70);
-            PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\logo.png", document);
+            PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\Sistem Analizi ve Tasarımı\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\logo.png", document);
             contentStream.drawImage(image2, 430, 750, 70, 70);
 
             // İçerik akışını kapat
@@ -628,10 +608,6 @@ public class billing extends javax.swing.JFrame {
 	    });
     }//GEN-LAST:event_customers_btn
 
-    private void billing_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billing_btn
-        // TODO add your handling code here:
-    }//GEN-LAST:event_billing_btn
-
     private void products_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_products_btn
         // TODO add your handling code here:
 	    dispose();
@@ -651,10 +627,6 @@ public class billing extends javax.swing.JFrame {
 		new login_page().setVisible(true);
 	    });
     }//GEN-LAST:event_logout_btn
-
-    private void BillingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillingTableMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BillingTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -691,23 +663,19 @@ public class billing extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BillingTable;
+    private javax.swing.JButton cikis_btn;
     private javax.swing.JButton fatura_kaydet_btn;
+    private javax.swing.JButton faturabtn;
     private javax.swing.JButton fis_print_btn;
     private javax.swing.JButton fise_ekle_btn;
+    private javax.swing.JButton hayvan_btn;
     private javax.swing.JTextField id_field;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -716,7 +684,11 @@ public class billing extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton kullanici_btn;
+    private javax.swing.JLabel musFaturaLabel;
+    private javax.swing.JButton musteri_btn;
     private javax.swing.JTextField quant_field;
     private javax.swing.JTextField tc_field;
+    private javax.swing.JButton urun_btn;
     // End of variables declaration//GEN-END:variables
 }

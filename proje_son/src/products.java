@@ -27,7 +27,13 @@ public class products extends javax.swing.JFrame {
     PreparedStatement Ps = null;
     ResultSet Rs = null;
     Statement St = null;
-    
+    int selectedRowIndex;
+    String id;
+    String oldProductId;
+    int columnCount;
+    String[] columnNames;
+     Object[] row;
+     
    public static int a;
     
     public products() throws SQLException {
@@ -61,12 +67,12 @@ public class products extends javax.swing.JFrame {
         jLabel50 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        hayvan_btn3 = new javax.swing.JButton();
+        kullanici_btn3 = new javax.swing.JButton();
+        musteri_btn3 = new javax.swing.JButton();
+        fatura_btn3 = new javax.swing.JButton();
+        urun_btn3 = new javax.swing.JButton();
+        cikis_btn3 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         ıd_field = new javax.swing.JTextField();
@@ -168,49 +174,44 @@ public class products extends javax.swing.JFrame {
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oo.png"))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(255, 204, 204));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        hayvan_btn3.setBackground(new java.awt.Color(255, 204, 204));
+        hayvan_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets.png"))); // NOI18N
+        hayvan_btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pets_btn(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 204, 204));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        kullanici_btn3.setBackground(new java.awt.Color(255, 204, 204));
+        kullanici_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/users.png"))); // NOI18N
+        kullanici_btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 users_btn(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 204, 204));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        musteri_btn3.setBackground(new java.awt.Color(255, 204, 204));
+        musteri_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customer.png"))); // NOI18N
+        musteri_btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customers_btn(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 204, 204));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        fatura_btn3.setBackground(new java.awt.Color(255, 204, 204));
+        fatura_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bill.png"))); // NOI18N
+        fatura_btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 billing_btn(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(255, 204, 204));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                products_btn(evt);
-            }
-        });
+        urun_btn3.setBackground(new java.awt.Color(255, 204, 204));
+        urun_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1375593-200-removebg-preview 1.png"))); // NOI18N
 
-        jButton9.setBackground(new java.awt.Color(255, 204, 204));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        cikis_btn3.setBackground(new java.awt.Color(255, 204, 204));
+        cikis_btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
+        cikis_btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logout_btn(evt);
             }
@@ -224,32 +225,32 @@ public class products extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel20)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hayvan_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(kullanici_btn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel48)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(musteri_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fatura_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel52)))
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE))
+                        .addComponent(urun_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)))
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cikis_btn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
@@ -262,12 +263,12 @@ public class products extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hayvan_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kullanici_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(musteri_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fatura_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(urun_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cikis_btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,25 +289,10 @@ public class products extends javax.swing.JFrame {
         jLabel14.setText("FIYAT");
 
         ıd_field.setBackground(new java.awt.Color(245, 245, 245));
-        ıd_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ıd_fieldActionPerformed(evt);
-            }
-        });
 
         productquantity_field.setBackground(new java.awt.Color(245, 245, 245));
-        productquantity_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productquantity_fieldActionPerformed(evt);
-            }
-        });
 
         productprice_field.setBackground(new java.awt.Color(245, 245, 245));
-        productprice_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productprice_fieldActionPerformed(evt);
-            }
-        });
 
         productname_field.setBackground(new java.awt.Color(245, 245, 245));
 
@@ -412,9 +398,9 @@ public class products extends javax.swing.JFrame {
             Ps = (PreparedStatement) Con.prepareStatement("delete from Products where `Urun ID` = ?");
             
             
-            int selectedRowIndex = productsTable.getSelectedRow();
+            selectedRowIndex = productsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
-                String id = (String) productsTable.getValueAt(selectedRowIndex, 0).toString();
+                id = (String) productsTable.getValueAt(selectedRowIndex, 0).toString();
                 Ps.setString(1, id);
                 Ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Ürün Silindi");
@@ -468,10 +454,10 @@ public class products extends javax.swing.JFrame {
             Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
             Ps = (PreparedStatement) Con.prepareStatement("Update Products Set `Urun ID` = ? , `Urun Turu` = ? , `Urun Miktari` = ? , `Urun Fiyati` = ? where `Urun ID` =?");
 
-            int selectedRowIndex = productsTable.getSelectedRow();
+            selectedRowIndex = productsTable.getSelectedRow();
             if (selectedRowIndex != -1) {
 
-                String oldProductId = (String) productsTable.getValueAt(selectedRowIndex, 0).toString();
+                oldProductId = (String) productsTable.getValueAt(selectedRowIndex, 0).toString();
                 if (ıd_field.getText().isEmpty() || productname_field.getText().isEmpty() || productquantity_field.getText().isEmpty()|| productprice_field.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Eksik Bilgi");
                 } else {
@@ -507,8 +493,8 @@ public class products extends javax.swing.JFrame {
         Rs = St.executeQuery("Select * from Products");
 
         ResultSetMetaData metaData = Rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-        String[] columnNames = new String[columnCount];
+        columnCount = metaData.getColumnCount();
+        columnNames = new String[columnCount];
         for (int i = 1; i <= columnCount; i++) {
             columnNames[i - 1] = metaData.getColumnName(i);
         }
@@ -518,7 +504,7 @@ public class products extends javax.swing.JFrame {
 
         // ResultSet nesnesinden verileri tabloya ekle
         while (Rs.next()) {
-            Object[] row = new Object[columnCount];
+            row = new Object[columnCount];
             for (int i = 1; i <= columnCount; i++) {
                 row[i - 1] = Rs.getObject(i);
             }
@@ -578,10 +564,6 @@ public class products extends javax.swing.JFrame {
 	    });
     }//GEN-LAST:event_billing_btn
 
-    private void products_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_products_btn
-        // TODO add your handling code here:
-    }//GEN-LAST:event_products_btn
-
     private void logout_btn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_btn
         // TODO add your handling code here:
 	    dispose();
@@ -589,18 +571,6 @@ public class products extends javax.swing.JFrame {
 		new login_page().setVisible(true);
 	    });
     }//GEN-LAST:event_logout_btn
-
-    private void ıd_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ıd_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ıd_fieldActionPerformed
-
-    private void productprice_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productprice_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_productprice_fieldActionPerformed
-
-    private void productquantity_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productquantity_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_productquantity_fieldActionPerformed
 
     private void productsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsTableMouseClicked
         int selectedRowIndex = productsTable.getSelectedRow();
@@ -652,12 +622,9 @@ public class products extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton cikis_btn3;
+    private javax.swing.JButton fatura_btn3;
+    private javax.swing.JButton hayvan_btn3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -674,10 +641,13 @@ public class products extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton kullanici_btn3;
+    private javax.swing.JButton musteri_btn3;
     private javax.swing.JTextField productname_field;
     private javax.swing.JTextField productprice_field;
     private javax.swing.JTextField productquantity_field;
     private javax.swing.JTable productsTable;
+    private javax.swing.JButton urun_btn3;
     private javax.swing.JButton ürün_duzenle_btn;
     private javax.swing.JButton ürün_kaydet_btn;
     private javax.swing.JButton ürün_sil_btn;
