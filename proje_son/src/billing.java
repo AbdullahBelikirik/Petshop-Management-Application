@@ -451,42 +451,15 @@ public class billing extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-            
+            if(tc_field.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Tc Girmediniz.");
+        }
+        else{
             
             
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.20yy    HH:mm");
             String formattedDateTime = now.format(formatter);
-            System.out.println(formattedDateTime);
-            
-            
-            
-            
-            PDDocument document = new PDDocument();
-
-            
-            PDPage page = new PDPage(PDRectangle.A4);
-            document.addPage(page);
-
-            
-            PDPageContentStream contentStream = new PDPageContentStream(document, page);
-
-            
-            PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\fone\\Desktop\\Font\\calibri-regular.ttf"));
-
-            
-            contentStream.setFont(font, 10);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(40, 800);
-            contentStream.showText("Musteri TC:"+ tc_field.getText().toString());
-            contentStream.newLineAtOffset(0, -20);
-            
-            
-            
-        if(tc_field.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Tc Girmediniz.");
-        }
-        else{
             
             try {
                 Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
@@ -498,7 +471,63 @@ public class billing extends javax.swing.JFrame {
                     
                     musteriAdres = Rs.getString("Adres");
                     musteriAdi = Rs.getString("Musteri Adi");
-
+                    PDDocument document = new PDDocument();
+                    PDPage page = new PDPage(PDRectangle.A4);
+                    document.addPage(page);
+                    PDPageContentStream contentStream = new PDPageContentStream(document, page);
+                    PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\fone\\Desktop\\Font\\calibri-regular.ttf"));
+                    contentStream.setFont(font, 10);
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(40, 800);
+                    contentStream.showText("Musteri TC:"+ tc_field.getText().toString());
+                    contentStream.newLineAtOffset(0, -20);
+                    contentStream.showText("Musteri Adi: "+musteriAdi);
+                    contentStream.newLineAtOffset(0, -20);
+                    contentStream.showText("Musteri Adres: "+musteriAdres);
+                    contentStream.setFont(font, 20);
+                    contentStream.newLineAtOffset(150, 20);
+                    contentStream.showText("YILDIZ PETSHOP FATURA");
+                    contentStream.setFont(font, 13);
+                    contentStream.newLineAtOffset(300,40);
+                    contentStream.showText(formattedDateTime);
+                    contentStream.setFont(font, 14);
+                    contentStream.newLineAtOffset(-400, -160);
+                    contentStream.showText("URUN ADI");
+                    contentStream.newLineAtOffset(200, 0);
+                    contentStream.showText("ADET");
+                    contentStream.newLineAtOffset(200, 0);
+                    contentStream.showText("FIYAT");
+                    contentStream.newLineAtOffset(0, -40);
+                    for(int i = 0;i<row;i++){
+                
+                        contentStream.newLineAtOffset(-400, -20);
+                        contentStream.showText(BillingTable.getValueAt(i, 0).toString());
+                        contentStream.newLineAtOffset(200, 0);
+                        contentStream.showText(BillingTable.getValueAt(i, 1).toString());
+                        contentStream.newLineAtOffset(200, 0);
+                        contentStream.showText("₺"+BillingTable.getValueAt(i, 2).toString());
+                    }
+                    int toplamFiyat=0;
+                    for(int i=0;i<row;i++){
+                        toplamFiyat= toplamFiyat+Integer.parseInt(BillingTable.getValueAt(i, 2).toString()); 
+                    }
+                    contentStream.newLineAtOffset(-80, -40);
+                    contentStream.showText("Toplam Tutar:₺"+String.valueOf(toplamFiyat));
+                    contentStream.endText();
+                    PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
+                    contentStream.drawImage(image, 500, 750, 70, 70);
+                    PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\logo.png", document);
+                    contentStream.drawImage(image2, 430, 750, 70, 70);
+                    contentStream.close();
+                    document.save(new File("Fatura.pdf"));
+                    document.close();
+            
+                    for(int i = 0; i<row; i++){
+                        for(int j = 0; j<3; j++){
+                            BillingTable.setValueAt(null, i, j);
+                        }
+                    }
+                    JOptionPane.showMessageDialog(this,"PDF Dosyasi Olusturuldu");
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Yanlıs Musteri TC'si");
@@ -506,64 +535,13 @@ public class billing extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(billing.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
             
             
-            contentStream.showText("Musteri Adi: "+musteriAdi);
-            contentStream.newLineAtOffset(0, -20);
-            contentStream.showText("Musteri Adres: "+musteriAdres);
-            contentStream.setFont(font, 20);
-            contentStream.newLineAtOffset(150, 20);
-            contentStream.showText("YILDIZ PETSHOP FATURA");
-            contentStream.setFont(font, 13);
-            contentStream.newLineAtOffset(300,40);
-            contentStream.showText(formattedDateTime);
-            contentStream.setFont(font, 14);
-            contentStream.newLineAtOffset(-400, -160);
-            contentStream.showText("URUN ADI");
-            contentStream.newLineAtOffset(200, 0);
-            contentStream.showText("ADET");
-            contentStream.newLineAtOffset(200, 0);
-            contentStream.showText("FIYAT");
-            contentStream.newLineAtOffset(0, -40);
-            for(int i = 0;i<row;i++){
-                
-                contentStream.newLineAtOffset(-400, -20);
-                contentStream.showText(BillingTable.getValueAt(i, 0).toString());
-                contentStream.newLineAtOffset(200, 0);
-                contentStream.showText(BillingTable.getValueAt(i, 1).toString());
-                contentStream.newLineAtOffset(200, 0);
-                contentStream.showText("₺"+BillingTable.getValueAt(i, 2).toString());
-                
-            }
-            int toplamFiyat=0;
-            for(int i=0;i<row;i++){
-                toplamFiyat= toplamFiyat+Integer.parseInt(BillingTable.getValueAt(i, 2).toString()); 
-            }
-            contentStream.newLineAtOffset(-80, -40);
-            contentStream.showText("Toplam Tutar:₺"+String.valueOf(toplamFiyat));
-
-            contentStream.endText();
-            PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
-            contentStream.drawImage(image, 500, 750, 70, 70);
-            PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\logo.png", document);
-            contentStream.drawImage(image2, 430, 750, 70, 70);
-
-            // İçerik akışını kapat
-            contentStream.close();
-
-            // PDF belgesini kaydet
-            document.save(new File("Fatura.pdf"));
-
-            // PDF belgesini kapat
-            document.close();
-
-            System.out.println("PDF dosyası oluşturuldu.");
-        } catch (IOException e) {
+        } 
+    }
+        catch (IOException e) {
             e.printStackTrace();
         }
-        totalPrice = 0;
-        row = 0;
     }//GEN-LAST:event_fis_print_btnActionPerformed
 
     private void fatura_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fatura_kaydet_btnActionPerformed
@@ -584,11 +562,7 @@ public class billing extends javax.swing.JFrame {
                 Logger.getLogger(billing.class.getName()).log(Level.SEVERE, null, ex);
             }               
         }
-        for(int i = 0; i<row; i++){
-            for(int j = 0; j<3; j++){
-                BillingTable.setValueAt(null, i, j);
-            }
-        }        
+                
         JOptionPane.showMessageDialog(this,"Faturanız Kaydedildi");
     }//GEN-LAST:event_fatura_kaydet_btnActionPerformed
 
