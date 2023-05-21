@@ -516,7 +516,7 @@ public class billing extends javax.swing.JFrame {
                     contentStream.endText();
                     PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\Sistem Analizi ve Tasarımı\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
                     contentStream.drawImage(image, 500, 750, 70, 70);
-                    PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\Sistem Analizi ve Tasarımı\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
+                    PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\Sistem Analizi ve Tasarımı\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\logo.png", document);
                     contentStream.drawImage(image2, 430, 750, 70, 70);
                     contentStream.close();
                     document.save(new File("Fatura.pdf"));
