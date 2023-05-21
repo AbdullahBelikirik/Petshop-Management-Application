@@ -459,7 +459,7 @@ public class pets extends javax.swing.JFrame {
                 Ps.setString(1, ıd_field.getText());
                 Ps.setString(2, species_field.getText());
                 Ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Kullanıcı Eklendi");
+                JOptionPane.showMessageDialog(this, "Hayvan Eklendi");
                 Con.close();
                 displayPets();
             } catch (SQLException ex) {

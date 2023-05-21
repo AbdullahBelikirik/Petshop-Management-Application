@@ -463,7 +463,7 @@ public class billing extends javax.swing.JFrame {
             
             try {
                 Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
-                Ps2 = (PreparedStatement) Con.prepareStatement("select * from Customers where `Telefon Numarasi` = ?");
+                Ps2 = (PreparedStatement) Con.prepareStatement("select * from Customers where `TCkimlik` = ?");
                 Ps2.setString(1, tc_field.getText());
                 Rs = Ps2.executeQuery();
                     
@@ -475,7 +475,7 @@ public class billing extends javax.swing.JFrame {
                     PDPage page = new PDPage(PDRectangle.A4);
                     document.addPage(page);
                     PDPageContentStream contentStream = new PDPageContentStream(document, page);
-                    PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\fone\\Desktop\\Font\\calibri-regular.ttf"));
+                    PDType0Font font = PDType0Font.load(document, new File("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\fatura\\calibri-regular.ttf"));
                     contentStream.setFont(font, 10);
                     contentStream.beginText();
                     contentStream.newLineAtOffset(40, 800);
@@ -514,9 +514,9 @@ public class billing extends javax.swing.JFrame {
                     contentStream.newLineAtOffset(-80, -40);
                     contentStream.showText("Toplam Tutar:₺"+String.valueOf(toplamFiyat));
                     contentStream.endText();
-                    PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
+                    PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\Sistem Analizi ve Tasarımı\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
                     contentStream.drawImage(image, 500, 750, 70, 70);
-                    PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\fone\\Desktop\\Sistem\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\logo.png", document);
+                    PDImageXObject image2 = PDImageXObject.createFromFile("C:\\Users\\ZEHRABENGÜEMÜL\\Desktop\\Sistem Analizi ve Tasarımı\\System-Analysis-and-Design-Project\\proje_son\\src\\img\\hazine.png", document);
                     contentStream.drawImage(image2, 430, 750, 70, 70);
                     contentStream.close();
                     document.save(new File("Fatura.pdf"));
