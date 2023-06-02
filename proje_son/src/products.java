@@ -394,7 +394,8 @@ public class products extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");            Ps = (PreparedStatement) Con.prepareStatement("delete from Users where UserName = ?");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");            
+            
             Ps = (PreparedStatement) Con.prepareStatement("delete from Products where `Urun ID` = ?");
             
             
@@ -426,7 +427,7 @@ public class products extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Eksik Bilgi");
         } else {
             try {
-                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
                 Ps = (PreparedStatement) Con.prepareStatement("insert into Products(`Urun ID`, `Urun Turu`, `Urun Miktari`, `Urun Fiyati`) VALUES(?,?,?,?)");
                 Ps.setString(1, ıd_field.getText());
                 Ps.setString(2, productname_field.getText());
@@ -451,7 +452,7 @@ public class products extends javax.swing.JFrame {
             Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
             Ps = (PreparedStatement) Con.prepareStatement("Update Products Set `Urun ID` = ? , `Urun Turu` = ? , `Urun Miktari` = ? , `Urun Fiyati` = ? where `Urun ID` =?");
 
             selectedRowIndex = productsTable.getSelectedRow();
@@ -487,7 +488,7 @@ public class products extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
 
         St = Con.createStatement();
         Rs = St.executeQuery("Select * from Products");

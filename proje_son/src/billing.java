@@ -422,7 +422,7 @@ public class billing extends javax.swing.JFrame {
         else{
             
             try {
-                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
                 Ps1 = (PreparedStatement) Con.prepareStatement("select * from Products where `Urun ID` = ?");
                 Ps1.setString(1, id_field.getText());
                 Rs = Ps1.executeQuery();
@@ -462,7 +462,7 @@ public class billing extends javax.swing.JFrame {
             String formattedDateTime = now.format(formatter);
             
             try {
-                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
                 Ps2 = (PreparedStatement) Con.prepareStatement("select * from Customers where `TCkimlik` = ?");
                 Ps2.setString(1, tc_field.getText());
                 Rs = Ps2.executeQuery();
@@ -547,7 +547,7 @@ public class billing extends javax.swing.JFrame {
     private void fatura_kaydet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fatura_kaydet_btnActionPerformed
         for(int i = 0; i<row; i++){
             try {
-                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
                 Ps1 = (PreparedStatement) Con.prepareStatement("Update Products set `Urun Miktari` = ? where `Urun Turu` = ?");
                 Ps2 = Con.prepareStatement("Select * from Products where `Urun Turu` = ?");
                 

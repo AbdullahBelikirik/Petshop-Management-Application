@@ -220,7 +220,7 @@ public class login_page extends javax.swing.JFrame {
         PreparedStatement Ps = null;
         ResultSet Rs = null;
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
         } catch (SQLException ex) {
             Logger.getLogger(login_page.class.getName()).log(Level.SEVERE, null, ex);
         }

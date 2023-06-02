@@ -387,7 +387,7 @@ public class pets extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
         St = Con.createStatement();
         Rs = St.executeQuery("Select * from Pets");
 
@@ -423,7 +423,7 @@ public class pets extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
             Ps = (PreparedStatement) Con.prepareStatement("delete from Pets where `Hayvan ID` = ?");
 
             selectedRowIndex = petsTable.getSelectedRow();
@@ -454,7 +454,7 @@ public class pets extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Eksik Bilgi");
         } else {
             try {
-                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
                 Ps = (PreparedStatement) Con.prepareStatement("insert into Pets(`Hayvan ID`, `Hayvan Turu`) VALUES(?,?)");
                 Ps.setString(1, ıd_field.getText());
                 Ps.setString(2, species_field.getText());
@@ -477,7 +477,7 @@ public class pets extends javax.swing.JFrame {
             Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
             Ps = (PreparedStatement) Con.prepareStatement("Update Pets Set `Hayvan ID` = ? , `Hayvan Turu` = ? where `Hayvan ID` = ?");
 
             selectedRowIndex = petsTable.getSelectedRow();
@@ -572,7 +572,7 @@ public class pets extends javax.swing.JFrame {
             Logger.getLogger(pets.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
             Ps = (PreparedStatement) Con.prepareStatement("Update Pets Set `Hayvan ID` = ? , `Hayvan Turu` = ? where `Hayvan ID` = ?");
 
              selectedRowIndex = petsTable.getSelectedRow();

@@ -377,7 +377,7 @@ public class users extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
         St = Con.createStatement();
         Rs = St.executeQuery("Select `Kullanici Adi` from Users");
 
@@ -418,7 +418,8 @@ public class users extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");            Ps = (PreparedStatement) Con.prepareStatement("delete from Users where `Kullanici Adi` = ?");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");            
+            Ps = (PreparedStatement) Con.prepareStatement("delete from Users where `Kullanici Adi` = ?");
 
             selectedRowIndex = userTable.getSelectedRow();
             if (selectedRowIndex != -1) {
@@ -447,7 +448,7 @@ public class users extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Eksik Bilgi");
         } else {
             try {
-                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
                 Ps = (PreparedStatement) Con.prepareStatement("insert into Users(`Kullanici Adi`,`Kullanici Sifresi`) VALUES(?,?)");
                 Ps.setString(1, username_field.getText());
                 Ps.setString(2, password_field.getText());
@@ -469,7 +470,7 @@ public class users extends javax.swing.JFrame {
             Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
             Ps = (PreparedStatement) Con.prepareStatement("Update Users Set `Kullanici Adi` = ? , `Kullanici Sifresi` = ? where `Kullanici Adi` = ?");
 
             selectedRowIndex = userTable.getSelectedRow();

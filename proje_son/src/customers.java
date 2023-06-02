@@ -401,7 +401,7 @@ public class customers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
             Ps = (PreparedStatement) Con.prepareStatement("delete from Customers where `Musteri Adi` = ?");
 
             selectedRowIndex = customerTable.getSelectedRow();
@@ -433,7 +433,7 @@ public class customers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Eksik Bilgi");
         } else {
             try {
-                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+                Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
                 Ps = (PreparedStatement) Con.prepareStatement("insert into Customers(`Musteri Adi`, `Adres`, `TCkimlik`) VALUES(?,?,?)");
                 Ps.setString(1, customername_field.getText());
                 Ps.setString(2, address_field.getText());
@@ -458,7 +458,7 @@ public class customers extends javax.swing.JFrame {
             Logger.getLogger(customers.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+            Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
             Ps = (PreparedStatement) Con.prepareStatement("Update Customers Set `Musteri Adi` = ? , `Adres` = ? , `TCkimlik` = ? where `Musteri Adi`=?");
 
             selectedRowIndex = customerTable.getSelectedRow();
@@ -520,7 +520,7 @@ public class customers extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db", "zh00010wu66b7f6ot8bb", "pscale_pw_irQPQskV5VYqpFnOoMs0ObjvFhjOtC8zm60UNwdMAfV");
+        Con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/petshop-db");
 
         St = Con.createStatement();
         Rs = St.executeQuery("Select * from Customers");
